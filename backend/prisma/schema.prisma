@@ -8,23 +8,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model team {
+model Team {
   id         Int       @id @default(autoincrement())
   name       String
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  players    Player[]
 }
 
-model player {
+model Player {
   id         Int       @id @default(autoincrement())
   name       String
   age        Int
+  team       Team      @relation(fields: [team_id], references: [id])
   team_id    Int
-
-
-  @@index([team_id])
-  @@foreignKey([team_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 }
