@@ -20,8 +20,10 @@ model Player {
   id         Int       @id @default(autoincrement())
   name       String
   age        Int
-  team       Team      @relation(fields: [team_name], references: [name])
-  team_name  String
-  created_at DateTime @default(now())
+
+  team_id    Int
+  team       Team      @relation(fields: [team_id], references: [id])
+
+  created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-} 
+}
