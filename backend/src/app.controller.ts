@@ -1,13 +1,15 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TeamService } from './team/team.service';
-import { Team } from 'generated/prisma';
+import { Player, Team } from 'generated/prisma';
+import { PlayerService } from './player/player.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly teamService: TeamService,
+    private readonly playerService: PlayerService,
   ) {}
 
   @Get()
@@ -26,5 +28,20 @@ export class AppController {
   async getAllTeams(): Promise<Team[]> {
     console.log('get all teams app controller');
     return this.teamService.getAllTeams();
+  }
+
+  @Post('player')
+  async createPlayer(
+    @Body() playerData: { name: string; age: number; teamId: number },
+  ): Promise<Player> {
+    const player = await this.playerService.createPlayer(playerData);
+    console.log('player created', player);
+    return player;
+  }
+
+  @Get('player')
+  async getAllPlayers(): Promise<Player[]> {
+    console.log('get all players app controller');
+    return this.playerService.getAllPlayers();
   }
 }
