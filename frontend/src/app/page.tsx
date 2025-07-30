@@ -10,16 +10,34 @@ export default function Home() {
         <KpiCard />
       </div>
 
-      <div className="cards-wrapper">
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
-        <ProfileCard type="player" />
+      <div className="profiles-section">
+        <span>Jogadores</span>
+        <div className="cards-wrapper">
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+          <ProfileCard type="player" />
+        </div>
+      </div>
+
+      <div className="profiles-section">
+        <span>Times</span>
+        <div className="cards-wrapper">
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+          <ProfileCard type="team" />
+        </div>
       </div>
     </div>
   );
