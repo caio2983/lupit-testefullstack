@@ -1,6 +1,7 @@
 import { Player } from "../../types/player";
 import KpiCard from "./components/KpiCard/KpiCard";
-import ProfileCard from "./components/ProfileCard/ProfileCard";
+import PlayerCard from "./components/ProfileCards/PlayerCard";
+
 import { getAllPlayersAndTeams } from "./lib/data";
 
 export default async function Home() {
@@ -18,24 +19,14 @@ export default async function Home() {
         <span>Jogadores</span>
         <div className="cards-wrapper">
           {players.map((player: Player) => (
-            <ProfileCard key={player.id} entity={player} type="player" />
+            <PlayerCard key={player.id} player={player} />
           ))}
         </div>
       </div>
 
       <div className="profiles-section">
         <span>Times</span>
-        <div className="cards-wrapper">
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-          <ProfileCard type="team" />
-        </div>
+        <div className="cards-wrapper"></div>
       </div>
     </div>
   );

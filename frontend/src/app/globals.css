@@ -1,5 +1,5 @@
 @import url("./components/KpiCard/KpiCard.css");
-@import url("./components/ProfileCard/ProfileCard.css");
+@import url("./components/PlayerCard/PlayerCard.css");
 
 :root {
   --background: #ffffff;
