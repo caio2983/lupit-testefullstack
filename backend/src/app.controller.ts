@@ -45,4 +45,10 @@ export class AppController {
     console.log('get all players app controller');
     return this.playerService.getAllPlayers();
   }
+
+  @Get('player/:id')
+  async getPlayerById(@Param('id') id: string): Promise<Player | null> {
+    console.log('get player by id app controller', id);
+    return this.playerService.getPlayerById(Number(id));
+  }
 }

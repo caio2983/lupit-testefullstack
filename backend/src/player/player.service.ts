@@ -26,4 +26,10 @@ export class PlayerService {
       },
     });
   }
+
+  async getPlayerById(id: number): Promise<Player | null> {
+    return await this.prisma.player.findUnique({
+      where: { id },
+    });
+  }
 }
