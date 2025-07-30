@@ -30,6 +30,8 @@ a {
   text-decoration: none;
 }
 
+/* Estilos para o layout principal, que é usado pelo home page , página de jogadores e página de times */
+
 .main-header {
   background-color: blue;
   height: 5%;
@@ -51,6 +53,8 @@ a {
   background-color: royalblue;
 }
 
+/* Estilos para o home page */
+
 .page-wrapper {
   /* Wrapper para as páginas de Jogadores e Times */
   display: inline-flex;
@@ -71,6 +75,7 @@ a {
 }
 
 .kpis-wrapper {
+  /* Caixa que contém os três cards de KPIs */
   display: flex;
   gap: 16px;
   width: 100%;

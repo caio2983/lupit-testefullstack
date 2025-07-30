@@ -1,3 +1,3 @@
 export default function JogadoresPage() {
-  return <div className="page-container">Jogadores</div>;
+  return <div className="page-wrapper">Jogadores</div>;
 }

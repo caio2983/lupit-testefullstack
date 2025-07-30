@@ -1,3 +1,3 @@
 export default function TimesPage() {
-  return <div className="page-container">Times</div>;
+  return <div className="page-wrapper">Times</div>;
 }
