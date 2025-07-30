@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TeamService } from './team/team.service';
 import { Player, Team } from 'generated/prisma';
@@ -12,11 +12,6 @@ export class AppController {
     private readonly playerService: PlayerService,
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Post('team')
   async createTeam(@Body() teamData: { name: string }): Promise<Team> {
     const team = await this.teamService.createTeam(teamData);
@@ -28,6 +23,12 @@ export class AppController {
   async getAllTeams(): Promise<Team[]> {
     console.log('get all teams app controller');
     return this.teamService.getAllTeams();
+  }
+
+  @Get('team/:id')
+  async getTeamById(@Param('id') id: string): Promise<Team | null> {
+    console.log('get team by id app controller', id);
+    return this.teamService.getTeamById(Number(id));
   }
 
   @Post('player')

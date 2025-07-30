@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TeamService } from './team.service';
 import { Team } from 'generated/prisma';
 
@@ -10,6 +10,12 @@ export class TeamController {
   getAllTeams() {
     console.log('get all teams controller');
     return this.teamService.getAllTeams() as Promise<any[]>;
+  }
+
+  @Get(':id')
+  getTeamById(@Param('id') id: number) {
+    console.log(`get team by id controller: ${id}`);
+    return this.teamService.getTeamById(id);
   }
 
   @Post()
