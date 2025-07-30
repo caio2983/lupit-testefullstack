@@ -27,7 +27,11 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header className="main-header">FutLovers</header>
         <div className="main-content">
-          <div className="main-navbar">Nav</div>
+          <div className="main-navbar">
+            <div className="nav-item"></div>
+            <div className="nav-item"></div>
+            <div className="nav-item"></div>
+          </div>
           {children}
         </div>
       </body>

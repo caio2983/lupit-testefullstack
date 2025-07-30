@@ -1,4 +1,5 @@
 @import url("./components/KpiCard/KpiCard.css");
+@import url("./components/ProfileCard/ProfileCard.css");
 
 :root {
   --background: #ffffff;
@@ -48,9 +49,17 @@ a {
 
 .main-navbar {
   display: inline-flex;
-  width: 72px;
+  flex-direction: column;
+  padding: 24px 12px;
+  gap: 12px;
   height: 100%;
   background-color: royalblue;
+}
+
+.nav-item {
+  height: 40px;
+  width: 40px;
+  background-color: blue;
 }
 
 /* Estilos para o home page */
@@ -66,17 +75,19 @@ a {
 }
 
 .home-container {
-  display: flex;
+  display: inline-flex;
+
   flex-direction: column;
   align-items: center;
+  gap: 56px;
   padding: 32px;
   height: 100%;
-  width: 60%;
 }
 
-.kpis-wrapper {
+.cards-wrapper {
   /* Caixa que contém os três cards de KPIs */
   display: flex;
   gap: 16px;
   width: 100%;
+  background-color: red;
 }
