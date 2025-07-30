@@ -1,3 +1,5 @@
+@import url("./components/KpiCard/KpiCard.css");
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -31,21 +33,26 @@ a {
 .main-header {
   background-color: blue;
   height: 5%;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  font-size: large;
 }
 
-.main-container {
-  display: inline-flex;
-  background-color: green;
+.main-content {
+  display: flex;
+  height: 95%;
 }
 
 .main-navbar {
   display: inline-flex;
-  width: 48px;
+  width: 72px;
   height: 100%;
   background-color: royalblue;
 }
 
-.page-container {
+.page-wrapper {
+  /* Wrapper para as páginas de Jogadores e Times */
   display: inline-flex;
   background-color: lightcoral;
   margin: 0;
@@ -54,7 +61,17 @@ a {
   width: 100%;
 }
 
-.main-content {
+.home-container {
   display: flex;
-  height: 95%;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  height: 100%;
+  width: 60%;
+}
+
+.kpis-wrapper {
+  display: flex;
+  gap: 16px;
+  width: 100%;
 }
