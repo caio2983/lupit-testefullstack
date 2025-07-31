@@ -98,6 +98,11 @@ export default async function Home() {
             ))}
           </div>
         </div>
+
+        <div className="quantidade-de-jogadores">
+          <span></span>
+          <span>Quantidade de jogadores</span>
+        </div>
       </div>
     </div>
   );

@@ -91,7 +91,6 @@ a {
   display: flex;
   gap: 16px;
   width: 100%;
-  background-color: red;
 }
 
 .profiles-section {
@@ -107,6 +106,7 @@ a {
   background-color: white;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .jogadores-por-time {
@@ -216,4 +216,26 @@ a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.quantidade-de-jogadores {
+  position: absolute;
+  bottom: -64px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 24px;
+  color: black;
+  background-color: #f3f4f6;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 8px;
+}
+
+.quantidade-de-jogadores :first-child {
+  width: 36px;
+  height: 24px;
+  background-color: #80d4e4;
 }
