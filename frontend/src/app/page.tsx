@@ -45,6 +45,63 @@ export default async function Home() {
           ))}
         </div>
       </div>
+
+      <div className="chart-section">
+        <div className="jogadores-por-time">Jogadores por time</div>
+        <div className="chart">
+          <div className="chart-legend">
+            <span className="scale-and-line">
+              <span className="scale">200</span>
+              <span className="line"></span>
+              <span className="scale line-end">{""}</span>
+            </span>
+            <span className="scale-and-line">
+              <span className="scale">150</span>
+              <span className="line"></span>
+              <span className="scale line-end">{""}</span>
+            </span>
+            <span className="scale-and-line">
+              <span className="scale">100</span>
+              <span className="line"></span>
+              <span className="scale line-end">{""}</span>
+            </span>
+            <span className="scale-and-line">
+              <span className="scale">50</span>
+              <span className="line"></span>
+              <span className="scale line-end">{""}</span>
+            </span>
+            <span className="scale">0</span>
+          </div>
+          <div className="bars-wrapper">
+            {teams.map((team: Team) => (
+              <div
+                className="column"
+                key={team.id}
+                style={{
+                  height: `${
+                    (players.filter((p: Player) => p.team_id === team.id)
+                      .length /
+                      Math.max(
+                        ...teams.map(
+                          (t: Team) =>
+                            players.filter((p: Player) => p.team_id === t.id)
+                              .length
+                        )
+                      )) *
+                      100 -
+                    20
+                  }%`,
+                }}
+              >
+                {
+                  players.filter((player: Player) => player.team_id === team.id)
+                    .length
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
