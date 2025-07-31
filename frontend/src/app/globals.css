@@ -3,6 +3,7 @@
 @import url("./components/ProfileCards/TeamCard/TeamCard.css");
 @import url("./jogadores/JogadoresPage.css");
 @import url("./components/AddPlayerOrTeam/AddButton.css");
+@import url("./components/PlayerOrTeamList/ProfilesList.css");
 
 :root {
   --background: #ffffff;
