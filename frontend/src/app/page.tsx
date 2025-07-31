@@ -93,10 +93,7 @@ export default async function Home() {
                   }%`,
                 }}
               >
-                {
-                  players.filter((player: Player) => player.team_id === team.id)
-                    .length
-                }
+                <span className="chart-team-name">{team.name}</span>
               </div>
             ))}
           </div>
