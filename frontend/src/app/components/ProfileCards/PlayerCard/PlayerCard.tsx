@@ -1,6 +1,6 @@
 import React from "react";
-import { Player } from "../../../../types/player";
-import { Team } from "../../../../types/team";
+import { Player } from "../../../../../types/player";
+import { Team } from "../../../../../types/team";
 
 export default function PlayerCard({
   player,
@@ -12,6 +12,7 @@ export default function PlayerCard({
   return (
     <div className="profile-card">
       {player?.name}
+      <br />
       time: {team?.name}
     </div>
   );
