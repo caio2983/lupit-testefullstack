@@ -11,9 +11,13 @@ export default function PlayerCard({
 }) {
   return (
     <div className="profile-card">
-      {player?.name}
-      <br />
-      time: {team?.name}
+      <div className="player-card-image-wrapper"></div>
+
+      <div className="player-card-info">
+        <div className="player-card-name">{player?.name}</div>
+        <div className="player-card-age">{player?.age} anos</div>
+        <div className="player-card-team-image-wrapper"></div>
+      </div>
     </div>
   );
 }
