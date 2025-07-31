@@ -2,6 +2,7 @@
 @import url("./components/ProfileCards/PlayerCard/PlayerCard.css");
 @import url("./components/ProfileCards/TeamCard/TeamCard.css");
 @import url("./jogadores/JogadoresPage.css");
+@import url("./components/AddPlayerOrTeam/AddButton.css");
 
 :root {
   --background: #ffffff;
@@ -71,7 +72,7 @@ a {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 56px;
+  gap: 20px;
   padding: 32px;
   height: 100%;
   width: 100%;
