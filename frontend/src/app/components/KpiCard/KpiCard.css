@@ -1,9 +1,24 @@
 .kpi-card {
-  height: 200px;
+  height: px;
   width: 350px;
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kpi-text {
+  font-size: 18px;
+  color: gray;
+  margin-bottom: 8px;
+}
+
+.kpi-number {
+  font-weight: bold;
+  font-size: 72px;
 }

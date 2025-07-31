@@ -9,16 +9,25 @@ import { getAllPlayersAndTeams } from "./lib/data";
 export default async function Home() {
   const { players, teams } = await getAllPlayersAndTeams();
 
+  const calculateAverageAge = (players: Player[]) => {
+    if (players.length === 0) return 0;
+    const totalAge = players.reduce((sum, player) => sum + player.age, 0);
+    return Math.round(totalAge / players.length);
+  };
+
   return (
     <div className="home-container">
       <div className="cards-wrapper">
-        <KpiCard />
-        <KpiCard />
-        <KpiCard />
+        <KpiCard text={"Times"} number={teams.length} />
+        <KpiCard text={"Jogadores"} number={players.length} />
+        <KpiCard
+          text={"Idade média dos jogadores"}
+          number={calculateAverageAge(players)}
+        />
       </div>
 
       <div className="profiles-section">
-        <span>Jogadores</span>
+        <span className="home-item">Jogadores</span>
         <div className="cards-wrapper">
           {players.map((player: Player) => (
             <PlayerCard
@@ -31,7 +40,7 @@ export default async function Home() {
       </div>
 
       <div className="profiles-section">
-        <span>Times</span>
+        <span className="home-item">Times</span>
         <div className="cards-wrapper">
           {teams.map((team: Team) => (
             <TeamCard
@@ -47,7 +56,7 @@ export default async function Home() {
       </div>
 
       <div className="chart-section">
-        <div className="jogadores-por-time">Jogadores por time</div>
+        <div className="home-item">Jogadores por time</div>
         <div className="chart">
           <div className="chart-legend">
             <span className="scale-and-line">
