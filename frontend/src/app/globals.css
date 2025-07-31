@@ -1,6 +1,7 @@
 @import url("./components/KpiCard/KpiCard.css");
 @import url("./components/ProfileCards/PlayerCard/PlayerCard.css");
 @import url("./components/ProfileCards/TeamCard/TeamCard.css");
+@import url("./jogadores/JogadoresPage.css");
 
 :root {
   --background: #ffffff;
@@ -46,7 +47,7 @@ a {
 
 .main-content {
   display: flex;
-  height: auto;
+  height: 100%;
 }
 
 .main-navbar {
@@ -67,16 +68,6 @@ a {
 /* Estilos para o home page */
 
 .page-wrapper {
-  /* Wrapper para as páginas de Jogadores e Times */
-  display: inline-flex;
-  background-color: lightcoral;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-
-.home-container {
   display: inline-flex;
   flex-direction: column;
   align-items: center;

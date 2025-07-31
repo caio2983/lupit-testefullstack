@@ -16,7 +16,7 @@ export default async function Home() {
   };
 
   return (
-    <div className="home-container">
+    <div className="page-wrapper">
       <div className="cards-wrapper">
         <KpiCard text={"Times"} number={teams.length} />
         <KpiCard text={"Jogadores"} number={players.length} />
