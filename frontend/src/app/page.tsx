@@ -1,4 +1,5 @@
 import { Player } from "../../types/player";
+import { Team } from "../../types/team";
 import KpiCard from "./components/KpiCard/KpiCard";
 import PlayerCard from "./components/ProfileCards/PlayerCard";
 
@@ -19,7 +20,11 @@ export default async function Home() {
         <span>Jogadores</span>
         <div className="cards-wrapper">
           {players.map((player: Player) => (
-            <PlayerCard key={player.id} player={player} />
+            <PlayerCard
+              key={player.id}
+              player={player}
+              team={teams.find((team: Team) => team.id === player.team_id)}
+            />
           ))}
         </div>
       </div>

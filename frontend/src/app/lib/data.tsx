@@ -7,3 +7,11 @@ export async function getAllPlayersAndTeams() {
 
   return { players, teams };
 }
+
+export async function getTeamById(id: number | undefined) {
+  const response = await fetch(`http://localhost:3000/team/${id}`);
+  if (!response.ok) {
+    throw new Error(`Falha ao buscar o time com id: ${id}`);
+  }
+  return await response.json();
+}
