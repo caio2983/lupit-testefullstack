@@ -33,7 +33,13 @@ export class AppController {
 
   @Post('player')
   async createPlayer(
-    @Body() playerData: { name: string; age: number; teamId: number },
+    @Body()
+    playerData: {
+      name: string;
+      age: number;
+      teamId: number;
+      image: string;
+    },
   ): Promise<Player> {
     const player = await this.playerService.createPlayer(playerData);
     console.log('player created', player);
