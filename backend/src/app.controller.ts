@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AppService } from './app.service';
 import { TeamService } from './team/team.service';
 import { Player, Team } from 'generated/prisma';
@@ -50,5 +50,17 @@ export class AppController {
   async getPlayerById(@Param('id') id: string): Promise<Player | null> {
     console.log('get player by id app controller', id);
     return this.playerService.getPlayerById(Number(id));
+  }
+
+  @Get('player/delete/:id')
+  async deletePlayer(@Param('id') id: number): Promise<{ message: string }> {
+    await this.playerService.deletePlayer(id);
+    return { message: `player with id ${id} deleted` };
+  }
+
+  @Get('team/delete/:id')
+  async deleteTeam(@Param('id') id: number): Promise<{ message: string }> {
+    await this.teamService.deleteTeam(id);
+    return { message: `team with id ${id} deleted` };
   }
 }

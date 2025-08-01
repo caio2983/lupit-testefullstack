@@ -32,4 +32,11 @@ export class PlayerService {
       where: { id },
     });
   }
+
+  async deletePlayer(id: number): Promise<void> {
+    id = Number(id);
+    await this.prisma.player.delete({
+      where: { id },
+    });
+  }
 }

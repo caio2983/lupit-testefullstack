@@ -22,4 +22,11 @@ export class TeamService {
       data,
     });
   }
+
+  async deleteTeam(id: number): Promise<void> {
+    id = Number(id);
+    await this.prisma.team.delete({
+      where: { id },
+    });
+  }
 }
