@@ -4,12 +4,15 @@ import { Camera } from "lucide-react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function AdicionarTime() {
   const [imagem, setImagem] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -69,7 +72,7 @@ export default function AdicionarTime() {
         throw new Error("Erro ao criar time");
       }
 
-      Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Time criado com sucesso!",
         confirmButtonColor: "#0070f3",
@@ -79,6 +82,8 @@ export default function AdicionarTime() {
 
       setName("");
       setImagem(null);
+
+      router.push("/times");
     } catch (error) {
       Swal.fire({
         icon: "error",

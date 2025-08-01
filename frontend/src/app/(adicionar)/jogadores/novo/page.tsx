@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { Team } from "../../../../../types/team";
+import { useRouter } from "next/navigation";
 
 export default function AdicionarJogador() {
   const [image, setImage] = useState<string | null>(null);
@@ -14,6 +15,8 @@ export default function AdicionarJogador() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -103,7 +106,7 @@ export default function AdicionarJogador() {
         throw new Error("Erro ao criar jogador");
       }
 
-      Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Jogador criado com sucesso!",
         confirmButtonColor: "#0070f3",
@@ -114,6 +117,8 @@ export default function AdicionarJogador() {
       setName("");
       setImage(null);
       setAge(null);
+
+      router.push("/jogadores");
     } catch (error) {
       Swal.fire({
         icon: "error",
