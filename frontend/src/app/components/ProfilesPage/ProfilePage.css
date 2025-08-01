@@ -4,6 +4,10 @@
   border-radius: 4px;
   align-self: flex-start;
   cursor: pointer;
+
+  font-size: 18px;
+
+  margin-bottom: 24px;
 }
 
 .jogadores-page-wrapper {

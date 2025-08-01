@@ -29,7 +29,7 @@ export default function RootLayout({
         <header className="main-header">
           <Link href="/">FutLovers</Link>
         </header>
-        <div className="main-content">{children}</div>
+        <div className="main-content adicionar-content">{children}</div>
       </body>
     </html>
   );
