@@ -1,4 +1,3 @@
-import ProfilePage from "@/app/components/ProfilesPage/ProfilePage";
 import { TeamsProvider } from "./context/TeamsContext";
 import TeamPage from "@/app/components/ProfilesPage/TeamPage";
 

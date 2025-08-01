@@ -1,8 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Team } from "../../../../../types/team";
-import { deleteTeamById, getAllTeams } from "@/app/lib/data";
+import { Team, TeamWithPlayerCount } from "../../../../../types/team";
+import { deleteTeamById, getAllPlayers, getAllTeams } from "@/app/lib/data";
+import { Player } from "../../../../../types/player";
 
 interface TeamsContextType {
   teams: Team[];
@@ -20,14 +21,30 @@ export const useTeams = () => {
 };
 
 export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [teams, setTeams] = useState<TeamWithPlayerCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchTeams = async () => {
     setLoading(true);
     try {
       const res = await getAllTeams();
-      setTeams(res);
+      const res_all_players = await getAllPlayers();
+
+      const teamsWithPlayerCount: TeamWithPlayerCount[] = res.map(
+        (team: Team) => {
+          const count = res_all_players.filter(
+            (player: Player) => player.team_id === team.id
+          ).length;
+
+          return {
+            ...team,
+            numberOfPlayers: count,
+          };
+        }
+      );
+
+      console.log("teams with player count:", teamsWithPlayerCount);
+      setTeams(teamsWithPlayerCount);
     } catch (error) {
       console.error("Erro ao buscar times:", error);
     } finally {

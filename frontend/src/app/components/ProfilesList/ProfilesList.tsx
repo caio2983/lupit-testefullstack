@@ -2,7 +2,7 @@
 
 import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
-import { Team } from "../../../../types/team";
+import { Team, TeamWithPlayerCount } from "../../../../types/team";
 
 export default function ProfilesList({
   type,
@@ -10,7 +10,7 @@ export default function ProfilesList({
   deleteProfile,
 }: {
   type: "player" | "team";
-  data: Team[] | Player[];
+  data: TeamWithPlayerCount[] | Player[];
   deleteProfile?: (id: number) => Promise<void>;
 }) {
   return (
@@ -44,7 +44,7 @@ export default function ProfilesList({
           <div className="profiles-property">{profile.name}</div>
           <div className="profiles-property">
             {type === "team" ? (
-              data.length
+              (profile as TeamWithPlayerCount).numberOfPlayers
             ) : (
               <>
                 <img src={"a"} alt="Logo" className="profile-logo" />
