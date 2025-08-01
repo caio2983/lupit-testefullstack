@@ -1,11 +1,11 @@
-// app/teams/page.tsx
 import ProfilePage from "@/app/components/ProfilesPage/ProfilePage";
 import { TeamsProvider } from "./context/TeamsContext";
+import TeamPage from "@/app/components/ProfilesPage/TeamPage";
 
 export default function TimesPage() {
   return (
     <TeamsProvider>
-      <ProfilePage type="team" />
+      <TeamPage></TeamPage>
     </TeamsProvider>
   );
 }

@@ -3,14 +3,14 @@
 import Link from "next/link";
 import React from "react";
 import AddButton from "../AddPlayerOrTeam/AddButton";
-import ProfilesList from "../ProfilesList/ProfilesList";
-import { useTeams } from "@/app/(times)/times/context/TeamsContext";
 
-export default function ProfilePage({ type }: { type: "player" | "team" }) {
-  const { teams, loading } = useTeams();
-
-  const dataToRender = type === "team" ? teams : [];
-
+export default function ProfilePage({
+  type,
+  children,
+}: {
+  type: "player" | "team";
+  children: React.ReactNode;
+}) {
   return (
     <div className="page-wrapper jogadores-page-wrapper">
       <div className="back-button">
@@ -22,11 +22,7 @@ export default function ProfilePage({ type }: { type: "player" | "team" }) {
         <AddButton type={type} />
       </div>
 
-      {loading ? (
-        <div>Carregando...</div>
-      ) : (
-        <ProfilesList type={type} data={dataToRender} />
-      )}
+      {children}
     </div>
   );
 }
