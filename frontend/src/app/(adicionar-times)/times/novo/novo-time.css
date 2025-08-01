@@ -66,7 +66,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px;
-  background-color: blueviolet;
+
   height: 30%;
 }
 
@@ -83,4 +83,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.form-adicionar {
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px 0;
+}
+
+.input-adicionar {
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.salvar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.botao-salvar {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.botao-salvar:hover {
+  background-color: #0059c1;
 }
