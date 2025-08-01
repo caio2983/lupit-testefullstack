@@ -19,7 +19,7 @@ export default async function ProfilePage({
 
       <div className="jogadores-page-header">
         <div>{type === "player" ? "Jogadores" : "Times"}</div>
-        <AddButton type={type === "player" ? "jogadores" : "times"} />
+        <AddButton type={type === "player" ? "player" : "team"} />
       </div>
 
       <ProfilesList type={type} data={data} />
