@@ -6,6 +6,7 @@
 @import url("./components/ProfilesList/ProfilesList.css");
 @import url("./components/ProfilesPage/ProfilePage.css");
 @import url("./(adicionar)/times/novo/novo-time.css");
+@import url("./(adicionar)/jogadores/novo/novo-jogador.css");
 
 :root {
   --background: #ffffff;

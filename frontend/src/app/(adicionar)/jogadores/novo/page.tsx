@@ -167,35 +167,37 @@ export default function AdicionarJogador() {
 
           <div className="adicionar-details">
             <form className="form-adicionar" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                id="nome-jogador"
-                name="nome"
-                placeholder="Digite o nome"
-                className="input-adicionar input-jogador-nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                type="number"
-                id="idade-jogador"
-                name="idade"
-                placeholder="Idade"
-                className="input-adicionar input-jogador-idade"
-                value={age ?? ""}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  if (value === "") {
-                    setAge(null);
-                  } else {
-                    const parsed = parseInt(value);
-                    if (!isNaN(parsed)) {
-                      setAge(parsed);
+              <div className="jogador-nome-idade">
+                <input
+                  type="text"
+                  id="nome-jogador"
+                  name="nome"
+                  placeholder="Digite o nome"
+                  className="input-adicionar input-jogador-nome"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="number"
+                  id="idade-jogador"
+                  name="idade"
+                  placeholder="Idade"
+                  className="input-adicionar input-jogador-idade"
+                  value={age ?? ""}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "") {
+                      setAge(null);
+                    } else {
+                      const parsed = parseInt(value);
+                      if (!isNaN(parsed)) {
+                        setAge(parsed);
+                      }
                     }
-                  }
-                }}
-                min="0"
-              />
+                  }}
+                  min="0"
+                />
+              </div>
 
               <input
                 list="teams"

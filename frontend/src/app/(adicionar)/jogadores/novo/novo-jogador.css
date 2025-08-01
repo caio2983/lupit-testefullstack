@@ -1,0 +1,4 @@
+.jogador-nome-idade {
+  display: flex;
+  gap: 12px;
+}
