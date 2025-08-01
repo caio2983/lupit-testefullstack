@@ -1,15 +1,15 @@
-import { getAllPlayers, getAllTeams } from "@/app/lib/data";
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import AddButton from "../AddPlayerOrTeam/AddButton";
 import ProfilesList from "../ProfilesList/ProfilesList";
+import { useTeams } from "@/app/(times)/times/context/TeamsContext";
 
-export default async function ProfilePage({
-  type,
-}: {
-  type: "player" | "team";
-}) {
-  const data = type === "player" ? await getAllPlayers() : await getAllTeams();
+export default function ProfilePage({ type }: { type: "player" | "team" }) {
+  const { teams, loading } = useTeams();
+
+  const dataToRender = type === "team" ? teams : [];
 
   return (
     <div className="page-wrapper jogadores-page-wrapper">
@@ -19,10 +19,14 @@ export default async function ProfilePage({
 
       <div className="jogadores-page-header">
         <div>{type === "player" ? "Jogadores" : "Times"}</div>
-        <AddButton type={type === "player" ? "player" : "team"} />
+        <AddButton type={type} />
       </div>
 
-      <ProfilesList type={type} data={data} />
+      {loading ? (
+        <div>Carregando...</div>
+      ) : (
+        <ProfilesList type={type} data={dataToRender} />
+      )}
     </div>
   );
 }

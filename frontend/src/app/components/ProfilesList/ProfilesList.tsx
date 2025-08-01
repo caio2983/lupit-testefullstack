@@ -3,7 +3,8 @@
 import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
 import { Team } from "../../../../types/team";
-import { deletePlayerById, deleteTeamById } from "@/app/lib/data";
+
+import { useTeams } from "@/app/(times)/times/context/TeamsContext";
 
 export default function ProfilesList({
   type,
@@ -12,11 +13,7 @@ export default function ProfilesList({
   type: "player" | "team";
   data: Team[] | Player[];
 }) {
-  async function deleteProfile(id: number, type: "player" | "team") {
-    return type == "player"
-      ? await deletePlayerById(id)
-      : await deleteTeamById(id);
-  }
+  const { deleteTeam } = useTeams();
 
   return (
     <div className="profiles-list">
@@ -63,7 +60,7 @@ export default function ProfilesList({
               className="icon"
               size={25}
               color="gray"
-              onClick={() => deleteProfile(profile.id, type)}
+              onClick={() => deleteTeam(profile.id)}
             />
           </div>
         </div>
