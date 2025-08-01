@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 
 export default function AdicionarTime() {
   const [imagem, setImagem] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,15 +24,12 @@ export default function AdicionarTime() {
           scrollbarPadding: false,
           heightAuto: false,
         });
-
         e.target.value = "";
         return;
       }
 
       const url = URL.createObjectURL(file);
-
       setImagem(url);
-
       e.target.value = "";
     }
   };
@@ -39,6 +38,60 @@ export default function AdicionarTime() {
     inputRef.current?.click();
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (name.trim() === "") {
+      setInputErro(true);
+
+      Swal.fire({
+        icon: "error",
+        title: "Digite um nome para o time",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+      return;
+    }
+
+    setInputErro(false);
+
+    try {
+      const response = await fetch("http://localhost:3000/team", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao criar time");
+      }
+
+      const data = await response.json();
+
+      Swal.fire({
+        icon: "success",
+        title: "Time criado com sucesso!",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+
+      setName("");
+      setImagem(null);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Erro!",
+        text: "Não conseguimos cadastrar o time, tente novamente mais tarde.",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+    }
+  };
   return (
     <main className="adicionar-container">
       <div className="back-button">
@@ -46,7 +99,7 @@ export default function AdicionarTime() {
       </div>
 
       <div className="adicionar-time-content">
-        <span className="inserir-jogador">Inserir jogador</span>
+        <span className="inserir-jogador">Inserir time</span>
 
         <div className="adicionar-box">
           <div className="adicionar-image-wrapper">
@@ -80,13 +133,15 @@ export default function AdicionarTime() {
           </div>
 
           <div className="adicionar-details">
-            <form className="form-adicionar">
+            <form className="form-adicionar" onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="nome-jogador"
                 name="nome"
                 placeholder="Digite o nome"
                 className="input-adicionar"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
 
               <div className="salvar-container">
