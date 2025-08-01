@@ -7,8 +7,9 @@ import Swal from "sweetalert2";
 import { Team } from "../../../../../types/team";
 
 export default function AdicionarJogador() {
-  const [imagem, setImagem] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const [name, setName] = useState("");
+  const [age, setAge] = useState<number | null>(null);
   const [inputErro, setInputErro] = useState(false);
   const [teams, setTeams] = useState<Team[]>([]);
   const [teamId, setTeamId] = useState<string>("");
@@ -32,7 +33,7 @@ export default function AdicionarJogador() {
       }
 
       const url = URL.createObjectURL(file);
-      setImagem(url);
+      setImage(url);
       e.target.value = "";
     }
   };
@@ -74,6 +75,19 @@ export default function AdicionarJogador() {
       return;
     }
 
+    if (teamId === "") {
+      setInputErro(true);
+
+      Swal.fire({
+        icon: "error",
+        title: "Selecione um time",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+      return;
+    }
+
     setInputErro(false);
 
     try {
@@ -82,7 +96,7 @@ export default function AdicionarJogador() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, teamId: parseInt(teamId), age, image }),
       });
 
       if (!response.ok) {
@@ -98,7 +112,8 @@ export default function AdicionarJogador() {
       });
 
       setName("");
-      setImagem(null);
+      setImage(null);
+      setAge(null);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -123,10 +138,10 @@ export default function AdicionarJogador() {
           <div className="adicionar-image-wrapper">
             <img
               src={
-                imagem ??
+                image ??
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDk_071dbbz-bewOvpfYa3IlyImYtpvQmluw&s"
               }
-              alt="Imagem do jogador"
+              alt="Image do jogador"
               className="adicionar-image"
             />
 
@@ -157,9 +172,29 @@ export default function AdicionarJogador() {
                 id="nome-jogador"
                 name="nome"
                 placeholder="Digite o nome"
-                className="input-adicionar"
+                className="input-adicionar input-jogador-nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="number"
+                id="idade-jogador"
+                name="idade"
+                placeholder="Idade"
+                className="input-adicionar input-jogador-idade"
+                value={age ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "") {
+                    setAge(null);
+                  } else {
+                    const parsed = parseInt(value);
+                    if (!isNaN(parsed)) {
+                      setAge(parsed);
+                    }
+                  }
+                }}
+                min="0"
               />
 
               <input

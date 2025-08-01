@@ -69,8 +69,6 @@ export default function AdicionarTime() {
         throw new Error("Erro ao criar time");
       }
 
-      const data = await response.json();
-
       Swal.fire({
         icon: "success",
         title: "Time criado com sucesso!",
