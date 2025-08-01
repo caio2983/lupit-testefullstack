@@ -13,6 +13,7 @@ model Team {
   name       String    @unique
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  image String?
   players Player[] 
 }
 
@@ -24,6 +25,7 @@ model Player {
   team_id    Int
   team       Team      @relation(fields: [team_id], references: [id], onDelete: Cascade)
 
+  image String?
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
