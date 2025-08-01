@@ -1,3 +1,5 @@
+import ProfilePage from "../components/PlayerOrTeamPage/ProfilePage";
+
 export default function TimesPage() {
-  return <div className="page-wrapper">Times</div>;
+  return <ProfilePage type="team"></ProfilePage>;
 }
