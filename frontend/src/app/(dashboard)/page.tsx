@@ -1,9 +1,9 @@
-import { Player } from "../../types/player";
-import { Team } from "../../types/team";
-import KpiCard from "./components/KpiCard/KpiCard";
-import PlayerCard from "./components/ProfileCards/PlayerCard/PlayerCard";
-import TeamCard from "./components/ProfileCards/TeamCard/TeamCard";
-import { getAllPlayers, getAllTeams } from "./lib/data";
+import { Player } from "../../../types/player";
+import { Team } from "../../../types/team";
+import KpiCard from "../components/KpiCard/KpiCard";
+import PlayerCard from "../components/ProfileCards/PlayerCard/PlayerCard";
+import TeamCard from "../components/ProfileCards/TeamCard/TeamCard";
+import { getAllPlayers, getAllTeams } from "../lib/data";
 
 export default async function Home() {
   const players = await getAllPlayers();
