@@ -41,6 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 }
 
 .adicionar-image {
@@ -66,4 +68,19 @@
   padding: 16px;
   background-color: blueviolet;
   height: 30%;
+}
+
+.adicionar-button {
+  position: absolute;
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
+  background-color: blue;
+  cursor: pointer;
+  bottom: 40px;
+  transform: translateX(96px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

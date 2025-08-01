@@ -1,9 +1,10 @@
+import { Camera } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 export default function AdicionarTime() {
   return (
-    <div className="adicionar-container">
+    <main className="adicionar-container">
       <div className="back-button">
         <Link href="/times">Voltar</Link>
       </div>
@@ -16,6 +17,10 @@ export default function AdicionarTime() {
               alt="Imagem do jogador"
               className="adicionar-image"
             />
+
+            <div className="adicionar-button">
+              <Camera size={36} color="white" />
+            </div>
           </div>
           <div className="adicionar-image-types">
             <p>
@@ -27,6 +32,6 @@ export default function AdicionarTime() {
           <div className="adicionar-details"></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
