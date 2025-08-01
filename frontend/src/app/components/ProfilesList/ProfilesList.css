@@ -83,3 +83,13 @@
   font-weight: 500;
   color: #374151;
 }
+
+.profiles-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon:hover {
+  cursor: pointer;
+}

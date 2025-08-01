@@ -1,5 +1,9 @@
+"use client";
+
+import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
 import { Team } from "../../../../types/team";
+import { deletePlayerById, deleteTeamById } from "@/app/lib/data";
 
 export default function ProfilesList({
   type,
@@ -8,6 +12,12 @@ export default function ProfilesList({
   type: "player" | "team";
   data: Team[] | Player[];
 }) {
+  async function deleteProfile(id: number, type: "player" | "team") {
+    return type == "player"
+      ? await deletePlayerById(id)
+      : await deleteTeamById(id);
+  }
+
   return (
     <div className="profiles-list">
       <div className="profiles-list-header">
@@ -47,8 +57,14 @@ export default function ProfilesList({
               </>
             )}
           </div>
-          <div className="profiles-property">
-            <button className="action-button">Editar</button>
+          <div className="profiles-property profiles-actions">
+            <Edit className="icon" size={25} color="gray" />
+            <Trash
+              className="icon"
+              size={25}
+              color="gray"
+              onClick={() => deleteProfile(profile.id, type)}
+            />
           </div>
         </div>
       ))}
