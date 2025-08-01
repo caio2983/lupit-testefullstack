@@ -77,3 +77,9 @@
 .action-button:hover {
   background-color: #1e40af;
 }
+
+.team-name {
+  margin-left: 16px;
+  font-weight: 500;
+  color: #374151;
+}

@@ -37,7 +37,16 @@ export default function ProfilesList({
           </div>
           <div className="profiles-property">{profile.id}</div>
           <div className="profiles-property">{profile.name}</div>
-          <div className="profiles-property">{data.length}</div>
+          <div className="profiles-property">
+            {type === "team" ? (
+              data.length
+            ) : (
+              <>
+                <img src={"a"} alt="Logo" className="profile-logo" />
+                <div className="team-name">Nome</div>
+              </>
+            )}
+          </div>
           <div className="profiles-property">
             <button className="action-button">Editar</button>
           </div>
