@@ -2,7 +2,7 @@ import { getAllPlayers, getAllTeams } from "@/app/lib/data";
 import Link from "next/link";
 import React from "react";
 import AddButton from "../AddPlayerOrTeam/AddButton";
-import ProfilesList from "../PlayerOrTeamList/ProfilesList";
+import ProfilesList from "../ProfilesList/ProfilesList";
 
 export default async function ProfilePage({
   type,
