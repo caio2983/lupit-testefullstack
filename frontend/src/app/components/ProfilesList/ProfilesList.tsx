@@ -4,17 +4,15 @@ import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
 import { Team } from "../../../../types/team";
 
-import { useTeams } from "@/app/(times)/times/context/TeamsContext";
-
 export default function ProfilesList({
   type,
   data,
+  deleteProfile,
 }: {
   type: "player" | "team";
   data: Team[] | Player[];
+  deleteProfile?: (id: number) => Promise<void>;
 }) {
-  const { deleteTeam } = useTeams();
-
   return (
     <div className="profiles-list">
       <div className="profiles-list-header">
@@ -60,7 +58,9 @@ export default function ProfilesList({
               className="icon"
               size={25}
               color="gray"
-              onClick={() => deleteTeam(profile.id)}
+              onClick={() => {
+                if (deleteProfile) deleteProfile(profile.id);
+              }}
             />
           </div>
         </div>
