@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.adicionar-body {
+  overflow-y: hidden !important;
+}
+
 .inserir-jogador {
   font-size: 24px;
   font-weight: bold;

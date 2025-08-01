@@ -25,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} adicionar-body`}
+      >
         <header className="main-header">
           <Link href="/">FutLovers</Link>
         </header>

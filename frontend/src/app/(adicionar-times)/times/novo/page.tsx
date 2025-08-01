@@ -3,6 +3,7 @@
 import { Camera } from "lucide-react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function AdicionarTime() {
   const [imagem, setImagem] = useState<string | null>(null);
@@ -11,8 +12,26 @@ export default function AdicionarTime() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const tamanhoMB = file.size / (1024 * 1024);
+      if (tamanhoMB > 3.1) {
+        Swal.fire({
+          icon: "error",
+          title: "Arquivo muito grande",
+          text: "O tamanho máximo permitido é 3.1MB.",
+          confirmButtonColor: "#0070f3",
+          scrollbarPadding: false,
+          heightAuto: false,
+        });
+
+        e.target.value = "";
+        return;
+      }
+
       const url = URL.createObjectURL(file);
+
       setImagem(url);
+
+      e.target.value = "";
     }
   };
 
