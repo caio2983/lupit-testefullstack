@@ -13,7 +13,7 @@ model Team {
   name       String    @unique
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  players    Player[]
+  players Player[] 
 }
 
 model Player {
@@ -22,7 +22,8 @@ model Player {
   age        Int
 
   team_id    Int
-  team       Team      @relation(fields: [team_id], references: [id])
+  team       Team      @relation(fields: [team_id], references: [id], onDelete: Cascade)
+
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
