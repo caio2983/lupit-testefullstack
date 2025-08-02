@@ -2,7 +2,13 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Team, TeamWithPlayerCount } from "../../../../../types/team";
-import { deleteTeamById, getAllPlayers, getAllTeams } from "@/app/lib/data";
+import {
+  deleteTeamById,
+  editTeam,
+  getAllPlayers,
+  getAllTeams,
+  getTeamById,
+} from "@/app/lib/data";
 import { Player } from "../../../../../types/player";
 
 interface TeamsContextType {
@@ -10,6 +16,8 @@ interface TeamsContextType {
   loading: boolean;
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
+  updateTeam: (name: string, image: string | null, id: number) => Promise<void>;
+  searchTeamById: (id: number) => Promise<void>;
 }
 
 const TeamsContext = createContext<TeamsContextType | null>(null);
@@ -62,12 +70,40 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const updateTeam = async (name: string, image: string | null, id: number) => {
+    try {
+      await editTeam({ name, image, id });
+      const updated = await getAllTeams();
+      setTeams(updated);
+    } catch (error) {
+      console.error("Erro ao editar o time:", error);
+    }
+  };
+
+  const searchTeamById = async (id: number) => {
+    try {
+      const result = await getTeamById(id);
+      return result;
+    } catch (error) {
+      console.error("Erro ao buscar o time");
+    }
+  };
+
   useEffect(() => {
     fetchTeams();
   }, []);
 
   return (
-    <TeamsContext.Provider value={{ teams, loading, fetchTeams, deleteTeam }}>
+    <TeamsContext.Provider
+      value={{
+        teams,
+        loading,
+        fetchTeams,
+        deleteTeam,
+        updateTeam,
+        searchTeamById,
+      }}
+    >
       {children}
     </TeamsContext.Provider>
   );
