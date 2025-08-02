@@ -34,3 +34,42 @@ export async function deletePlayerById(id: number | undefined) {
   }
   return await response.json();
 }
+
+export async function createTeam(data: { name: string; image: string | null }) {
+  const response = await fetch("http://localhost:3000/team", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao criar time");
+  }
+
+  return await response.json();
+}
+
+export async function editTeam(data: {
+  name: string;
+  image: string | null;
+  id: number;
+}) {
+  const response = await fetch(`http://localhost:3000/team/${data.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: data.name,
+      image: data.image,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao editar time");
+  }
+
+  return await response.json();
+}
