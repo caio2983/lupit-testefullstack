@@ -3,6 +3,7 @@
 import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
 import { Team, TeamWithPlayerCount } from "../../../../types/team";
+import { useRouter } from "next/navigation";
 
 export default function ProfilesList({
   type,
@@ -13,6 +14,7 @@ export default function ProfilesList({
   data: TeamWithPlayerCount[] | Player[];
   deleteProfile?: (id: number) => Promise<void>;
 }) {
+  const router = useRouter();
   return (
     <div className="profiles-list">
       <div className="profiles-list-header">
@@ -53,7 +55,16 @@ export default function ProfilesList({
             )}
           </div>
           <div className="profiles-property profiles-actions">
-            <Edit className="icon" size={25} color="gray" />
+            <Edit
+              className="icon"
+              size={25}
+              color="gray"
+              onClick={() => {
+                if (type === "team") {
+                  router.push(`/times/${profile.id}/editar`);
+                }
+              }}
+            />
             <Trash
               className="icon"
               size={25}
