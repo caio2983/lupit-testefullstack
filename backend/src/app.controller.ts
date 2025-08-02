@@ -13,7 +13,9 @@ export class AppController {
   ) {}
 
   @Post('team')
-  async createTeam(@Body() teamData: { name: string }): Promise<Team> {
+  async createTeam(
+    @Body() teamData: { name: string; image: string },
+  ): Promise<Team> {
     const team = await this.teamService.createTeam(teamData);
     console.log('team created', team);
     return team;
@@ -68,5 +70,18 @@ export class AppController {
   async deleteTeam(@Param('id') id: number): Promise<{ message: string }> {
     await this.teamService.deleteTeam(id);
     return { message: `team with id ${id} deleted` };
+  }
+
+  @Put('team/:id')
+  async editTeam(
+    @Param('id') id: string,
+    @Body() updateData: { name?: string; image?: string },
+  ): Promise<Team> {
+    const updatedTeam = await this.teamService.updateTeam(
+      Number(id),
+      updateData,
+    );
+    console.log('team updated', updatedTeam);
+    return updatedTeam;
   }
 }

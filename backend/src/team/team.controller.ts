@@ -19,7 +19,7 @@ export class TeamController {
   }
 
   @Post()
-  createTeam(@Body() body: { name: string }): Promise<Team> {
+  createTeam(@Body() body: { name: string; image: string }): Promise<Team> {
     console.log('team created controller');
     return this.teamService.createTeam(body);
   }
