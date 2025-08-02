@@ -5,9 +5,10 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { createTeam } from "@/app/lib/data";
 
 export default function AdicionarTime() {
-  const [imagem, setImagem] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ export default function AdicionarTime() {
       }
 
       const url = URL.createObjectURL(file);
-      setImagem(url);
+      setImage(url);
       e.target.value = "";
     }
   };
@@ -46,7 +47,6 @@ export default function AdicionarTime() {
 
     if (name.trim() === "") {
       setInputErro(true);
-
       Swal.fire({
         icon: "error",
         title: "Digite um nome para o time",
@@ -60,17 +60,7 @@ export default function AdicionarTime() {
     setInputErro(false);
 
     try {
-      const response = await fetch("http://localhost:3000/team", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao criar time");
-      }
+      await createTeam({ name, image });
 
       await Swal.fire({
         icon: "success",
@@ -81,7 +71,7 @@ export default function AdicionarTime() {
       });
 
       setName("");
-      setImagem(null);
+      setImage(null);
 
       router.push("/times");
     } catch (error) {
@@ -95,6 +85,7 @@ export default function AdicionarTime() {
       });
     }
   };
+
   return (
     <main className="adicionar-container">
       <div className="back-button">
@@ -108,10 +99,10 @@ export default function AdicionarTime() {
           <div className="adicionar-image-wrapper">
             <img
               src={
-                imagem ??
+                image ??
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDk_071dbbz-bewOvpfYa3IlyImYtpvQmluw&s"
               }
-              alt="Imagem do jogador"
+              alt="Image do jogador"
               className="adicionar-image"
             />
 
