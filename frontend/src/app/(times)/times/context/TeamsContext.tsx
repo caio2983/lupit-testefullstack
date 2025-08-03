@@ -16,8 +16,8 @@ interface TeamsContextType {
   loading: boolean;
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
-  updateTeam: (name: string, image: string | null, id: number) => Promise<void>;
-  searchTeamById: (id: number) => Promise<void>;
+  updateTeam: (name: string, id: number) => Promise<void>;
+  getTeamById: (id: number) => Promise<Team | null>;
 }
 
 const TeamsContext = createContext<TeamsContextType | null>(null);
@@ -70,9 +70,9 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const updateTeam = async (name: string, image: string | null, id: number) => {
+  const updateTeam = async (name: string, id: number) => {
     try {
-      await editTeam({ name, image, id });
+      await editTeam({ name, id });
       const updated = await getAllTeams();
       setTeams(updated);
     } catch (error) {
@@ -80,14 +80,15 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const searchTeamById = async (id: number) => {
-    try {
-      const result = await getTeamById(id);
-      return result;
-    } catch (error) {
-      console.error("Erro ao buscar o time");
-    }
-  };
+  // const searchTeamById = async (id: number): Team | null => {
+  //   try {
+  //     const result = await getTeamById(id);
+  //     return result;
+  //   } catch (error) {
+  //     console.error("Erro ao buscar o time");
+  //     return null;
+  //   }
+  // };
 
   useEffect(() => {
     fetchTeams();
@@ -101,7 +102,7 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
         fetchTeams,
         deleteTeam,
         updateTeam,
-        searchTeamById,
+        getTeamById,
       }}
     >
       {children}

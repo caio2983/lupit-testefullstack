@@ -14,11 +14,11 @@ export default function EditarTimePage() {
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { searchTeamById, updateTeam } = useTeams();
+  const { getTeamById, updateTeam } = useTeams();
 
   const [teamId, setTeamId] = useState<number>(1);
 
-  const [teamData, setTeamData] = useState<Team>();
+  const [teamData, setTeamData] = useState<Team | null>();
 
   const params = useParams();
   const id = params.id;
@@ -30,11 +30,13 @@ export default function EditarTimePage() {
     setTeamId(teamId);
 
     const fetch_team = async () => {
-      const team_data = await searchTeamById(teamId);
+      const team_data = await getTeamById(teamId);
 
       console.log("TESTE", team_data);
       setTeamData(team_data);
-      setImage(team_data["image"]);
+      setImage(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+      );
     };
 
     fetch_team();
@@ -93,7 +95,7 @@ export default function EditarTimePage() {
     setInputErro(false);
 
     try {
-      await updateTeam(name, image, teamId);
+      await updateTeam(name, teamId);
 
       await Swal.fire({
         icon: "success",

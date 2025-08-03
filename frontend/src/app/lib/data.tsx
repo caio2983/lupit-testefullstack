@@ -1,3 +1,5 @@
+import { Team } from "../../../types/team";
+
 export async function getAllPlayers() {
   const playersResponse = await fetch("http://localhost:3000/player");
   const players = await playersResponse.json();
@@ -11,12 +13,25 @@ export async function getAllTeams() {
   return teams;
 }
 
-export async function getTeamById(id: number | undefined) {
-  const response = await fetch(`http://localhost:3000/team/${id}`);
-  if (!response.ok) {
-    throw new Error(`Falha ao buscar o time com id: ${id}`);
+export async function getTeamById(id: number): Promise<Team | null> {
+  if (typeof id !== "number") {
+    id = Number(id);
   }
-  return await response.json();
+
+  try {
+    const response = await fetch(`http://localhost:3000/team/${id}`);
+
+    if (!response.ok) {
+      console.error("Erro na resposta HTTP:", response.status);
+      return null;
+    }
+
+    const data = await response.json();
+    return data as Team;
+  } catch (error) {
+    console.error("Erro ao buscar o time:", error);
+    return null;
+  }
 }
 
 export async function deleteTeamById(id: number | undefined) {
@@ -35,7 +50,7 @@ export async function deletePlayerById(id: number | undefined) {
   return await response.json();
 }
 
-export async function createTeam(data: { name: string; image: string | null }) {
+export async function createTeam(data: { name: string }) {
   const response = await fetch("http://localhost:3000/team", {
     method: "POST",
     headers: {
@@ -53,7 +68,7 @@ export async function createTeam(data: { name: string; image: string | null }) {
 
 export async function editTeam(data: {
   name: string;
-  image: string | null;
+
   id: number;
 }) {
   const response = await fetch(`http://localhost:3000/team/${data.id}`, {
@@ -63,7 +78,6 @@ export async function editTeam(data: {
     },
     body: JSON.stringify({
       name: data.name,
-      image: data.image,
     }),
   });
 
