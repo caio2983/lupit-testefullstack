@@ -18,6 +18,7 @@ interface TeamsContextType {
   deleteTeam: (id: number) => Promise<void>;
   updateTeam: (name: string, id: number) => Promise<void>;
   getTeamById: (id: number) => Promise<Team | null>;
+  setTeams: React.Dispatch<React.SetStateAction<TeamWithPlayerCount[]>>;
 }
 
 const TeamsContext = createContext<TeamsContextType | null>(null);
@@ -35,22 +36,7 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
   const fetchTeams = async () => {
     setLoading(true);
     try {
-      const res = await getAllTeams();
-      const res_all_players = await getAllPlayers();
-
-      const teamsWithPlayerCount: TeamWithPlayerCount[] = res.map(
-        (team: Team) => {
-          const count = res_all_players.filter(
-            (player: Player) => player.team_id === team.id
-          ).length;
-
-          return {
-            ...team,
-            numberOfPlayers: count,
-          };
-        }
-      );
-
+      const teamsWithPlayerCount = await getAllTeams();
       console.log("teams with player count:", teamsWithPlayerCount);
       setTeams(teamsWithPlayerCount);
     } catch (error) {
@@ -80,16 +66,6 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // const searchTeamById = async (id: number): Team | null => {
-  //   try {
-  //     const result = await getTeamById(id);
-  //     return result;
-  //   } catch (error) {
-  //     console.error("Erro ao buscar o time");
-  //     return null;
-  //   }
-  // };
-
   useEffect(() => {
     fetchTeams();
   }, []);
@@ -103,6 +79,7 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
         deleteTeam,
         updateTeam,
         getTeamById,
+        setTeams,
       }}
     >
       {children}

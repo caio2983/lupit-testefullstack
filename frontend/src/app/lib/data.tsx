@@ -1,4 +1,5 @@
-import { Team } from "../../../types/team";
+import { Player } from "../../../types/player";
+import { Team, TeamWithPlayerCount } from "../../../types/team";
 
 export async function getAllPlayers() {
   const playersResponse = await fetch("http://localhost:3000/player");
@@ -6,11 +7,29 @@ export async function getAllPlayers() {
   return players;
 }
 
-export async function getAllTeams() {
-  const teamsResponse = await fetch("http://localhost:3000/team");
-  const teams = await teamsResponse.json();
+export async function getAllTeams(): Promise<TeamWithPlayerCount[]> {
+  try {
+    const teamsResponse = await fetch("http://localhost:3000/team");
+    const teams: Team[] = await teamsResponse.json();
 
-  return teams;
+    const players: Player[] = await getAllPlayers();
+
+    const teamsWithPlayerCount: TeamWithPlayerCount[] = teams.map((team) => {
+      const numberOfPlayers = players.filter(
+        (player) => player.team_id === team.id
+      ).length;
+
+      return {
+        ...team,
+        numberOfPlayers,
+      };
+    });
+
+    return teamsWithPlayerCount;
+  } catch (error) {
+    console.error("Erro ao buscar times com jogadores:", error);
+    return [];
+  }
 }
 
 export async function getTeamById(id: number): Promise<Team | null> {

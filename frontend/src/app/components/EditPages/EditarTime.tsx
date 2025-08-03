@@ -14,8 +14,6 @@ export default function EditarTimePage() {
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { getTeamById, updateTeam } = useTeams();
-
   const [teamId, setTeamId] = useState<number>(1);
 
   const [teamData, setTeamData] = useState<Team | null>();
@@ -25,6 +23,8 @@ export default function EditarTimePage() {
 
   const router = useRouter();
 
+  const { getTeamById, updateTeam, setTeams } = useTeams();
+
   useEffect(() => {
     const teamId = Number(id);
     setTeamId(teamId);
@@ -32,7 +32,6 @@ export default function EditarTimePage() {
     const fetch_team = async () => {
       const team_data = await getTeamById(teamId);
 
-      console.log("TESTE", team_data);
       setTeamData(team_data);
       setImage(
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
