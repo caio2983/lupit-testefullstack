@@ -4,6 +4,7 @@ import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
 import { Team, TeamWithPlayerCount } from "../../../../types/team";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function ProfilesList({
   type,
@@ -40,7 +41,7 @@ export default function ProfilesList({
       {data.map((profile) => (
         <div className="profiles-card" key={profile.id}>
           <div className="profiles-property">
-            <img src={"a"} alt="Logo" className="profile-logo" />
+            <img src={data["image"]} alt="Logo" className="profile-logo" />
           </div>
           <div className="profiles-property">{profile.id}</div>
           <div className="profiles-property">{profile.name}</div>
@@ -69,8 +70,24 @@ export default function ProfilesList({
               className="icon"
               size={25}
               color="gray"
-              onClick={() => {
-                if (deleteProfile) deleteProfile(profile.id);
+              onClick={async () => {
+                const resultado = await Swal.fire({
+                  title: "Tem certeza?",
+                  text: "Remover o time é uma ação irreversível",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#d33",
+                  cancelButtonColor: "#3085d6",
+                  confirmButtonText: "Sim",
+                  cancelButtonText: "Não",
+
+                  scrollbarPadding: false,
+                  heightAuto: false,
+                });
+
+                if (resultado.isConfirmed && deleteProfile) {
+                  deleteProfile(profile.id);
+                }
               }}
             />
           </div>
