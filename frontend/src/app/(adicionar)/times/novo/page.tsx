@@ -60,7 +60,7 @@ export default function AdicionarTime() {
     setInputErro(false);
 
     try {
-      await createTeam({ name, image });
+      await createTeam({ name });
 
       await Swal.fire({
         icon: "success",

@@ -41,7 +41,13 @@ export default function ProfilesList({
       {data.map((profile) => (
         <div className="profiles-card" key={profile.id}>
           <div className="profiles-property">
-            <img src={data["image"]} alt="Logo" className="profile-logo" />
+            <img
+              src={
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+              }
+              alt="Logo"
+              className="profile-logo"
+            />
           </div>
           <div className="profiles-property">{profile.id}</div>
           <div className="profiles-property">{profile.name}</div>
