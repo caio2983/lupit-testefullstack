@@ -14,7 +14,7 @@ export default function EditarTimePage() {
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { searchTeamById } = useTeams();
+  const { searchTeamById, updateTeam } = useTeams();
 
   const [teamId, setTeamId] = useState<number>(1);
 
@@ -93,17 +93,7 @@ export default function EditarTimePage() {
     setInputErro(false);
 
     try {
-      const response = await fetch("http://localhost:3000/team", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, image }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao criar time");
-      }
+      await updateTeam(name, image, teamId);
 
       await Swal.fire({
         icon: "success",
