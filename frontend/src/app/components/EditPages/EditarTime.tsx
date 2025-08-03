@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { useParams, useRouter } from "next/navigation";
-import { useTeams } from "@/app/(times)/times/context/TeamsContext";
+import { useTeams } from "@/app/TeamsContext/TeamsContext";
 import { Team } from "../../../../types/team";
 
 export default function EditarTimePage() {

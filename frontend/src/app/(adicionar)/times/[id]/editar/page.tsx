@@ -1,4 +1,4 @@
-import { TeamsProvider } from "@/app/(times)/times/context/TeamsContext";
+import { TeamsProvider } from "@/app/TeamsContext/TeamsContext";
 import EditarTimePage from "@/app/components/EditPages/EditarTime";
 import React from "react";
 

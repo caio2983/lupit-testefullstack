@@ -1,6 +1,6 @@
 import PlayerPage from "@/app/components/ProfilesPage/PlayerPage";
 import ProfilePage from "../../components/ProfilesPage/ProfilePage";
-import { PlayersProvider } from "./context/PlayersContext";
+import { PlayersProvider } from "../../PlayersContext/PlayersContext";
 
 export default async function JogadoresPage() {
   return (

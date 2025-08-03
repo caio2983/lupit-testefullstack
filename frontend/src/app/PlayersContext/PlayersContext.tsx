@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Player } from "../../../../../types/player";
+import { Player } from "../../../types/player";
 import { deletePlayerById, getAllPlayers } from "@/app/lib/data";
 
 interface PlayersContextType {

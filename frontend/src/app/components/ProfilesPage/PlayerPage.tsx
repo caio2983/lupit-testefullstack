@@ -3,7 +3,7 @@
 import React from "react";
 import ProfilePage from "./ProfilePage";
 import ProfilesList from "../ProfilesList/ProfilesList";
-import { usePlayers } from "@/app/(jogadores)/jogadores/context/PlayersContext";
+import { usePlayers } from "@/app/PlayersContext/PlayersContext";
 
 export default function PlayerPage() {
   const { players, loading } = usePlayers();

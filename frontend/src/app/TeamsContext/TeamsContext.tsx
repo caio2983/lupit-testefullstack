@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Team, TeamWithPlayerCount } from "../../../../../types/team";
+import { Team, TeamWithPlayerCount } from "../../../types/team";
 import {
   deleteTeamById,
   editTeam,
@@ -9,7 +9,7 @@ import {
   getAllTeams,
   getTeamById,
 } from "@/app/lib/data";
-import { Player } from "../../../../../types/player";
+import { Player } from "../../../types/player";
 
 interface TeamsContextType {
   teams: Team[];

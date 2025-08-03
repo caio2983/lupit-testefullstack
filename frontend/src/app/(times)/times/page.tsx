@@ -1,4 +1,4 @@
-import { TeamsProvider } from "./context/TeamsContext";
+import { TeamsProvider } from "../../TeamsContext/TeamsContext";
 import TeamPage from "@/app/components/ProfilesPage/TeamPage";
 
 export default function TimesPage() {

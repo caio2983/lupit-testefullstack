@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import PlayerCard from "../../ProfileCards/PlayerCard/PlayerCard";
-import { useTeams } from "@/app/(times)/times/context/TeamsContext";
+import { useTeams } from "@/app/TeamsContext/TeamsContext";
 import { getAllPlayers, getTeamById } from "@/app/lib/data";
 import { Player } from "../../../../../types/player";
 import { Team } from "../../../../../types/team";

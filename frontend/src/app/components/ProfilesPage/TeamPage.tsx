@@ -3,7 +3,7 @@
 import React from "react";
 import ProfilePage from "./ProfilePage";
 import ProfilesList from "../ProfilesList/ProfilesList";
-import { useTeams } from "@/app/(times)/times/context/TeamsContext";
+import { useTeams } from "@/app/TeamsContext/TeamsContext";
 
 export default function TeamPage() {
   const { teams, loading, deleteTeam } = useTeams();
