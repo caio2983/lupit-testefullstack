@@ -5,7 +5,7 @@ import ProfilePage from "./ProfilePage";
 import ProfilesList from "../ProfilesList/ProfilesList";
 import { useTeams } from "@/app/TeamsContext/TeamsContext";
 
-export default function TeamPage() {
+export default function AllTeams() {
   const { teams, loading, deleteTeam } = useTeams();
 
   const dataToRender = teams;
