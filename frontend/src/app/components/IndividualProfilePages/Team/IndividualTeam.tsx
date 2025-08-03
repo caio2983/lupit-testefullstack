@@ -1,9 +1,48 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PlayerCard from "../../ProfileCards/PlayerCard/PlayerCard";
 import { useTeams } from "@/app/(times)/times/context/TeamsContext";
+import { getAllPlayers, getTeamById } from "@/app/lib/data";
+import { Player } from "../../../../../types/player";
+import { Team } from "../../../../../types/team";
+import { useParams } from "next/navigation";
 
 export default function IndividualTeam() {
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [team, setTeam] = useState<Team | null>(null);
+  const [teamId, setTeamId] = useState<number>(0);
+
+  const params = useParams();
+  const id = params.id;
+
+  useEffect(() => {
+    const teamId = Number(id);
+    setTeamId(teamId);
+
+    async function fetchPlayers() {
+      try {
+        const res = await getAllPlayers();
+        setPlayers(res);
+      } catch (error) {
+        console.error("Erro ao buscar jogadores:", error);
+      }
+    }
+
+    async function fetchTeam() {
+      try {
+        const res = await getTeamById(teamId);
+        setTeam(res);
+      } catch (error) {
+        console.error("erro ao buscar o time", error);
+      }
+    }
+
+    fetchPlayers();
+    fetchTeam();
+  }, []);
+
   return (
     <main className="page-container">
       <div className="back-button">
@@ -12,21 +51,15 @@ export default function IndividualTeam() {
 
       <div className="individual-team">
         <div className="individual-team-image-wrapper"></div>
-        <p>Nome do time</p>
+        <p>{team?.name}</p>
       </div>
 
       <h1 className="individual-team-list-label">Jogadores</h1>
 
       <div className="individual-team-players-list">
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
-        <PlayerCard></PlayerCard>
+        {players.map((player) => (
+          <PlayerCard key={player.id} player={player} />
+        ))}
       </div>
     </main>
   );
