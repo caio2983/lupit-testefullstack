@@ -40,7 +40,14 @@ export default function ProfilesList({
       </div>
 
       {data.map((profile) => (
-        <Link href={`/times/${profile.id}`} key={profile.id}>
+        <Link
+          href={
+            type === "team"
+              ? `/times/${profile.id}`
+              : `/jogadores/${profile.id}`
+          }
+          key={profile.id}
+        >
           <div className="profiles-card">
             <div className="profiles-property">
               <img
