@@ -39,21 +39,12 @@ export default function ProfilesList({
         <div className="profiles-property">Ações</div>
       </div>
 
-      {data.map((profile) => (
-        <Link
-          href={
-            type === "team"
-              ? `/times/${profile.id}`
-              : `/jogadores/${profile.id}`
-          }
-          key={profile.id}
-        >
+      {data.map((profile) => {
+        const content = (
           <div className="profiles-card">
             <div className="profiles-property">
               <img
-                src={
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 alt="Logo"
                 className="profile-logo"
               />
@@ -107,8 +98,16 @@ export default function ProfilesList({
               />
             </div>
           </div>
-        </Link>
-      ))}
+        );
+
+        return type === "team" ? (
+          <Link href={`/times/${profile.id}`} key={profile.id}>
+            {content}
+          </Link>
+        ) : (
+          <div key={profile.id}>{content}</div>
+        );
+      })}
     </div>
   );
 }
