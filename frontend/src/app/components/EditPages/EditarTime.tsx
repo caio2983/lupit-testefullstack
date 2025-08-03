@@ -57,8 +57,15 @@ export default function EditarTimePage() {
         return;
       }
 
-      const url = URL.createObjectURL(file);
-      setImage(url);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImage(base64String);
+      };
+
+      reader.readAsDataURL(file);
+
       e.target.value = "";
     }
   };
@@ -91,7 +98,7 @@ export default function EditarTimePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ name, image }),
       });
 
       if (!response.ok) {
