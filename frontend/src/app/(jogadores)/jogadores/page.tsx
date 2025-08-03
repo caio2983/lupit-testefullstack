@@ -1,11 +1,10 @@
-import PlayerPage from "@/app/components/ProfilesPage/PlayerPage";
-import ProfilePage from "../../components/ProfilesPage/ProfilePage";
 import { PlayersProvider } from "../../PlayersContext/PlayersContext";
+import AllPlayers from "@/app/components/ProfilesPage/AllPlayers";
 
 export default async function JogadoresPage() {
   return (
     <PlayersProvider>
-      <PlayerPage></PlayerPage>
+      <AllPlayers></AllPlayers>
     </PlayersProvider>
   );
 }

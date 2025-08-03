@@ -5,7 +5,7 @@ import ProfilePage from "./ProfilePage";
 import ProfilesList from "../ProfilesList/ProfilesList";
 import { usePlayers } from "@/app/PlayersContext/PlayersContext";
 
-export default function PlayerPage() {
+export default function AllPlayers() {
   const { players, loading } = usePlayers();
   const dataToRender = players;
   return (
