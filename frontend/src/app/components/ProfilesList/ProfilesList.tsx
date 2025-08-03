@@ -5,6 +5,7 @@ import { Player } from "../../../../types/player";
 import { Team, TeamWithPlayerCount } from "../../../../types/team";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 export default function ProfilesList({
   type,
@@ -39,65 +40,67 @@ export default function ProfilesList({
       </div>
 
       {data.map((profile) => (
-        <div className="profiles-card" key={profile.id}>
-          <div className="profiles-property">
-            <img
-              src={
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              }
-              alt="Logo"
-              className="profile-logo"
-            />
-          </div>
-          <div className="profiles-property">{profile.id}</div>
-          <div className="profiles-property">{profile.name}</div>
-          <div className="profiles-property">
-            {type === "team" ? (
-              (profile as TeamWithPlayerCount).numberOfPlayers
-            ) : (
-              <>
-                <img src={"a"} alt="Logo" className="profile-logo" />
-                <div className="team-name">Nome</div>
-              </>
-            )}
-          </div>
-          <div className="profiles-property profiles-actions">
-            <Edit
-              className="icon"
-              size={25}
-              color="gray"
-              onClick={() => {
-                if (type === "team") {
-                  router.push(`/times/${profile.id}/editar`);
+        <Link href={`/times/${profile.id}`} key={profile.id}>
+          <div className="profiles-card">
+            <div className="profiles-property">
+              <img
+                src={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 }
-              }}
-            />
-            <Trash
-              className="icon"
-              size={25}
-              color="gray"
-              onClick={async () => {
-                const resultado = await Swal.fire({
-                  title: "Tem certeza?",
-                  text: "Remover o time é uma ação irreversível",
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#d33",
-                  cancelButtonColor: "#3085d6",
-                  confirmButtonText: "Sim",
-                  cancelButtonText: "Não",
+                alt="Logo"
+                className="profile-logo"
+              />
+            </div>
+            <div className="profiles-property">{profile.id}</div>
+            <div className="profiles-property">{profile.name}</div>
+            <div className="profiles-property">
+              {type === "team" ? (
+                (profile as TeamWithPlayerCount).numberOfPlayers
+              ) : (
+                <>
+                  <img src={"a"} alt="Logo" className="profile-logo" />
+                  <div className="team-name">Nome</div>
+                </>
+              )}
+            </div>
+            <div className="profiles-property profiles-actions">
+              <Edit
+                className="icon"
+                size={25}
+                color="gray"
+                onClick={() => {
+                  if (type === "team") {
+                    router.push(`/times/${profile.id}/editar`);
+                  }
+                }}
+              />
+              <Trash
+                className="icon"
+                size={25}
+                color="gray"
+                onClick={async () => {
+                  const resultado = await Swal.fire({
+                    title: "Tem certeza?",
+                    text: "Remover o time é uma ação irreversível",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Sim",
+                    cancelButtonText: "Não",
 
-                  scrollbarPadding: false,
-                  heightAuto: false,
-                });
+                    scrollbarPadding: false,
+                    heightAuto: false,
+                  });
 
-                if (resultado.isConfirmed && deleteProfile) {
-                  deleteProfile(profile.id);
-                }
-              }}
-            />
+                  if (resultado.isConfirmed && deleteProfile) {
+                    deleteProfile(profile.id);
+                  }
+                }}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
