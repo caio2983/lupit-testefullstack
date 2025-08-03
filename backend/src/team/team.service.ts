@@ -38,7 +38,6 @@ export class TeamService {
       where: { id },
       data: {
         ...(updateData.name && { name: updateData.name }),
-        ...(updateData.image && { image: updateData.image }),
       },
     });
   }

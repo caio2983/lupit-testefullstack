@@ -13,9 +13,7 @@ export class AppController {
   ) {}
 
   @Post('team')
-  async createTeam(
-    @Body() teamData: { name: string; image: string },
-  ): Promise<Team> {
+  async createTeam(@Body() teamData: { name: string }): Promise<Team> {
     const team = await this.teamService.createTeam(teamData);
     console.log('team created', team);
     return team;
@@ -40,7 +38,6 @@ export class AppController {
       name: string;
       age: number;
       teamId: number;
-      image: string;
     },
   ): Promise<Player> {
     const player = await this.playerService.createPlayer(playerData);
@@ -75,7 +72,7 @@ export class AppController {
   @Put('team/:id')
   async editTeam(
     @Param('id') id: string,
-    @Body() updateData: { name?: string; image?: string },
+    @Body() updateData: { name?: string },
   ): Promise<Team> {
     const updatedTeam = await this.teamService.updateTeam(
       Number(id),
