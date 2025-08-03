@@ -120,7 +120,7 @@ export default function EditarTimePage() {
     }
   };
   return (
-    <main className="adicionar-container">
+    <main className="page-container">
       <div className="back-button">
         <Link href="/times">Voltar</Link>
       </div>

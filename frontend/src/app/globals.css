@@ -1,12 +1,12 @@
 @import url("./components/KpiCard/KpiCard.css");
-@import url("./components/ProfileCards/PlayerCard/PlayerCard.css");
-@import url("./components/ProfileCards/TeamCard/TeamCard.css");
+@import url("./components/ProfileCards/ProfileCards.css");
 @import url("./components/ProfilesList/ProfilesList.css");
 @import url("./components/AddPlayerOrTeam/AddButton.css");
 @import url("./components/ProfilesList/ProfilesList.css");
 @import url("./components/ProfilesPage/ProfilePage.css");
 @import url("./(adicionar)/times/novo/novo-time.css");
 @import url("./(adicionar)/jogadores/novo/novo-jogador.css");
+@import url("./components/IndividualProfilePages/Team/IndividualTeam.css");
 
 :root {
   --background: #ffffff;
@@ -234,4 +234,14 @@ a {
   width: 36px;
   height: 24px;
   background-color: #80d4e4;
+}
+
+.page-container {
+  border-radius: 4px;
+  margin: 0 auto;
+  height: 100%;
+  width: 70%;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
 }
