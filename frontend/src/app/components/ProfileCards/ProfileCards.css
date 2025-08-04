@@ -10,6 +10,11 @@
   display: flex;
 }
 
+.team-card:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
 .profile-card-empty {
   visibility: hidden;
 }
