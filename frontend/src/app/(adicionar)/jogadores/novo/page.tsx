@@ -8,7 +8,7 @@ import { Team } from "../../../../../types/team";
 import { useRouter } from "next/navigation";
 
 export default function AdicionarJogador() {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>("/Knight.png");
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [inputErro, setInputErro] = useState(false);
@@ -18,27 +18,57 @@ export default function AdicionarJogador() {
 
   const router = useRouter();
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const tamanhoMB = file.size / (1024 * 1024);
-      if (tamanhoMB > 3.1) {
-        Swal.fire({
-          icon: "error",
-          title: "Arquivo muito grande",
-          text: "O tamanho máximo permitido é 3.1MB.",
-          confirmButtonColor: "#0070f3",
-          scrollbarPadding: false,
-          heightAuto: false,
-        });
-        e.target.value = "";
-        return;
-      }
+    if (!file) return;
 
-      const url = URL.createObjectURL(file);
-      setImage(url);
+    const tamanhoMB = file.size / (1024 * 1024);
+    if (tamanhoMB > 3.1) {
+      Swal.fire({
+        icon: "error",
+        title: "Arquivo muito grande",
+        text: "O tamanho máximo permitido é 3.1MB.",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
       e.target.value = "";
+      return;
     }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "dashboard-pic");
+
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dgkxrrj5x/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.secure_url) {
+        setImage(data.secure_url);
+      } else {
+        throw new Error("Erro ao obter URL da imagem");
+      }
+    } catch (error) {
+      console.error("Erro no upload da imagem:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Erro no upload",
+        text: "Não foi possível enviar a imagem. Tente novamente.",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+    }
+
+    e.target.value = "";
   };
 
   useEffect(() => {
@@ -115,7 +145,7 @@ export default function AdicionarJogador() {
       });
 
       setName("");
-      setImage(null);
+      setImage("/Knight.png");
       setAge(null);
 
       router.push("/jogadores");
@@ -142,10 +172,7 @@ export default function AdicionarJogador() {
         <div className="adicionar-box">
           <div className="adicionar-image-wrapper">
             <img
-              src={
-                image ??
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDk_071dbbz-bewOvpfYa3IlyImYtpvQmluw&s"
-              }
+              src={image}
               alt="Image do jogador"
               className="adicionar-image"
             />
