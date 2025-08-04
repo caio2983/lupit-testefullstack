@@ -23,7 +23,7 @@ export default function EditarTimePage() {
 
   const router = useRouter();
 
-  const { getTeamById, updateTeam, setTeams } = useTeams();
+  const { getTeamById, updateTeam } = useTeams();
 
   useEffect(() => {
     const teamId = Number(id);
@@ -32,43 +32,68 @@ export default function EditarTimePage() {
     const fetch_team = async () => {
       const team_data = await getTeamById(teamId);
 
-      setTeamData(team_data);
-      setImage(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-      );
-    };
+      if (team_data) {
+        setTeamData(team_data);
 
-    fetch_team();
-  }, [id]);
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const tamanhoMB = file.size / (1024 * 1024);
-      if (tamanhoMB > 3.1) {
-        Swal.fire({
-          icon: "error",
-          title: "Arquivo muito grande",
-          text: "O tamanho máximo permitido é 3.1MB.",
-          confirmButtonColor: "#0070f3",
-          scrollbarPadding: false,
-          heightAuto: false,
-        });
-        e.target.value = "";
-        return;
+        if (team_data.image) {
+          setImage(team_data.image);
+        }
       }
+    };
+    fetch_team();
+  }, [id, getTeamById]);
 
-      const reader = new FileReader();
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setImage(base64String);
-      };
-
-      reader.readAsDataURL(file);
-
+    const tamanhoMB = file.size / (1024 * 1024);
+    if (tamanhoMB > 3.1) {
+      Swal.fire({
+        icon: "error",
+        title: "Arquivo muito grande",
+        text: "O tamanho máximo permitido é 3.1MB.",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
       e.target.value = "";
+      return;
     }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "dashboard-pic");
+
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dgkxrrj5x/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.secure_url) {
+        setImage(data.secure_url);
+      } else {
+        throw new Error("Erro ao obter URL da imagem");
+      }
+    } catch (error) {
+      console.error("Erro no upload da imagem:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Erro no upload",
+        text: "Não foi possível enviar a imagem. Tente novamente.",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+    }
+
+    e.target.value = "";
   };
 
   const abrirSelecionador = () => {
@@ -94,7 +119,19 @@ export default function EditarTimePage() {
     setInputErro(false);
 
     try {
-      await updateTeam(name, teamId);
+      if (image == null) {
+        Swal.fire({
+          icon: "error",
+          title: "Erro!",
+          text: "Não conseguimos cadastrar o time, tente novamente mais tarde.",
+          confirmButtonColor: "#0070f3",
+          scrollbarPadding: false,
+          heightAuto: false,
+        });
+        return;
+      }
+
+      await updateTeam(name, teamId, image);
 
       await Swal.fire({
         icon: "success",

@@ -9,14 +9,13 @@ import {
   getAllTeams,
   getTeamById,
 } from "@/app/lib/data";
-import { Player } from "../../../types/player";
 
 interface TeamsContextType {
   teams: Team[];
   loading: boolean;
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
-  updateTeam: (name: string, id: number) => Promise<void>;
+  updateTeam: (name: string, id: number, image: string) => Promise<void>;
   getTeamById: (id: number) => Promise<Team | null>;
   setTeams: React.Dispatch<React.SetStateAction<TeamWithPlayerCount[]>>;
 }
@@ -56,9 +55,9 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const updateTeam = async (name: string, id: number) => {
+  const updateTeam = async (name: string, id: number, image: string) => {
     try {
-      await editTeam({ name, id });
+      await editTeam({ name, id, image });
       const updated = await getAllTeams();
       setTeams(updated);
     } catch (error) {
