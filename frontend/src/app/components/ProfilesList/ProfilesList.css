@@ -28,6 +28,7 @@
   background-color: #ffffff;
   transition: background-color 0.2s ease;
   z-index: 0;
+  cursor: pointer;
 }
 
 .profiles-card:hover {
@@ -94,4 +95,5 @@
 
 .icon:hover {
   cursor: pointer;
+  stroke: black;
 }

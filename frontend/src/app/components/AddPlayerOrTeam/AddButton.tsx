@@ -8,12 +8,13 @@ export default function AddButton({ type }: { type: string }) {
         href={
           type === "team"
             ? "/times/novo"
-            : type == "player"
+            : type === "player"
             ? "/jogadores/novo"
             : "#"
         }
       >
-        + Adicionar {type}
+        + Adicionar{" "}
+        {type === "team" ? "time" : type === "player" ? "jogador" : ""}
       </Link>
     </div>
   );
