@@ -85,18 +85,18 @@ export default async function Home() {
                 key={team.id}
                 style={{
                   height: `${
-                    (players.filter((p: Player) => p.team_id === team.id)
+                    players.filter((p: Player) => p.team_id === team.id)
                       .length /
-                      Math.max(
-                        ...teams.map(
-                          (t: Team) =>
-                            players.filter((p: Player) => p.team_id === t.id)
-                              .length
-                        )
-                      )) *
-                      100 -
-                    20
+                    Math.max(
+                      ...teams.map(
+                        (t: Team) =>
+                          players.filter((p: Player) => p.team_id === t.id)
+                            .length
+                      )
+                    ) /
+                    2
                   }%`,
+                  maxHeight: "100%",
                 }}
               >
                 <span className="chart-team-name">{team.name}</span>
