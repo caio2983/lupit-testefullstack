@@ -111,18 +111,13 @@ export default async function Home() {
                 className="column"
                 key={team.id}
                 style={{
-                  height: `${
-                    players.filter((p: Player) => p.team_id === team.id)
+                  height: `${Math.min(
+                    (players.filter((p: Player) => p.team_id === team.id)
                       .length /
-                    Math.max(
-                      ...teams.map(
-                        (t: Team) =>
-                          players.filter((p: Player) => p.team_id === t.id)
-                            .length
-                      )
-                    ) /
-                    2
-                  }%`,
+                      200) *
+                      100,
+                    100
+                  )}%`,
                   maxHeight: "100%",
                 }}
               >
