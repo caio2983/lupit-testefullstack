@@ -17,13 +17,14 @@ export default function AllPlayers() {
       setHasLoadedOnce(true);
     }
   }, [loading, hasLoadedOnce]);
+
   return (
     <ProfilePage type="player">
-      {loading ? (
+      {!hasLoadedOnce && loading ? (
         <div>Carregando...</div>
       ) : (
         <ProfilesList
-          type={"player"}
+          type="player"
           data={dataToRender}
           deleteProfile={deletePlayer}
           fetchTeams={fetchTeams}
