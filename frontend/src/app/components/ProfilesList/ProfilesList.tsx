@@ -73,6 +73,8 @@ export default function ProfilesList({
                 e.stopPropagation();
                 if (type === "team") {
                   router.push(`/times/${profile.id}/editar`);
+                } else {
+                  router.push(`/jogadores/${profile.id}/editar`);
                 }
               }}
             />
