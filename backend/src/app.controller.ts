@@ -13,7 +13,9 @@ export class AppController {
   ) {}
 
   @Post('team')
-  async createTeam(@Body() teamData: { name: string }): Promise<Team> {
+  async createTeam(
+    @Body() teamData: { name: string; image: string },
+  ): Promise<Team> {
     const team = await this.teamService.createTeam(teamData);
     console.log('team created', team);
     return team;
