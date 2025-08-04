@@ -6,14 +6,18 @@ import ProfilesList from "../ProfilesList/ProfilesList";
 import { usePlayers } from "@/app/PlayersContext/PlayersContext";
 
 export default function AllPlayers() {
-  const { players, loading } = usePlayers();
+  const { players, loading, deletePlayer } = usePlayers();
   const dataToRender = players;
   return (
     <ProfilePage type="player">
       {loading ? (
         <div>Carregando...</div>
       ) : (
-        <ProfilesList type={"player"} data={dataToRender} />
+        <ProfilesList
+          type={"player"}
+          data={dataToRender}
+          deleteProfile={deletePlayer}
+        />
       )}
     </ProfilePage>
   );

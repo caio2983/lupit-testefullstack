@@ -84,7 +84,10 @@ export default function ProfilesList({
                 e.stopPropagation();
                 const resultado = await Swal.fire({
                   title: "Tem certeza?",
-                  text: "Remover o time é uma ação irreversível",
+                  text:
+                    type === "player"
+                      ? "Remover o jogador é uma ação irreversível"
+                      : "Remover o time é uma ação irreversível",
                   icon: "warning",
                   showCancelButton: true,
                   confirmButtonColor: "#d33",
