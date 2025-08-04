@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Player } from "../../../types/player";
 import { Team, TeamWithPlayerCount } from "../../../types/team";
 import KpiCard from "../components/KpiCard/KpiCard";
@@ -33,28 +34,48 @@ export default async function Home() {
       </div>
 
       <div className="profiles-section">
-        <span className="home-item">Jogadores</span>
+        <div className="home-section-labels">
+          <span className="home-item">Jogadores</span>
+          <span className="see-more">
+            <Link href={"/jogadores"}>Ver Mais</Link>
+          </span>
+        </div>
+
         <div className="cards-wrapper">
-          {players.map((player: Player) => (
-            <PlayerCard
-              key={player.id}
-              player={player}
-              team={teams.find((team: Team) => team.id === player.team_id)}
-            />
-          ))}
+          {players.length === 0 ? (
+            <PlayerCard empty />
+          ) : (
+            players.map((player: Player) => (
+              <PlayerCard
+                key={player.id}
+                player={player}
+                team={teams.find((team: Team) => team.id === player.team_id)}
+              />
+            ))
+          )}
         </div>
       </div>
 
       <div className="profiles-section">
-        <span className="home-item">Times</span>
+        <div className="home-section-labels">
+          <span className="home-item">Times</span>
+          <span className="see-more">
+            <Link href={"/times"}>Ver Mais</Link>
+          </span>
+        </div>
+
         <div className="cards-wrapper">
-          {teams.map((team: TeamWithPlayerCount) => (
-            <TeamCard
-              key={team.id}
-              team={team}
-              numberOfPlayers={team["numberOfPlayers"]}
-            />
-          ))}
+          {teams.length === 0 ? (
+            <TeamCard empty />
+          ) : (
+            teams.map((team: TeamWithPlayerCount) => (
+              <TeamCard
+                key={team.id}
+                team={team}
+                numberOfPlayers={team.numberOfPlayers}
+              />
+            ))
+          )}
         </div>
       </div>
 

@@ -5,10 +5,16 @@ import { Team } from "../../../../../types/team";
 export default function PlayerCard({
   player,
   team,
+  empty = false,
 }: {
   player?: Player;
   team?: Team;
+  empty?: boolean;
 }) {
+  if (empty) {
+    return <div className="profile-card" />;
+  }
+
   return (
     <div className="profile-card">
       <div className="player-card-image-wrapper"></div>

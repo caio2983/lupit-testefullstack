@@ -245,3 +245,7 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.see-more {
+  margin-left: 12px;
+}
