@@ -1,6 +1,7 @@
 import React from "react";
 import { Player } from "../../../../../types/player";
 import { Team } from "../../../../../types/team";
+import Image from "next/image";
 
 export default function PlayerCard({
   player,
@@ -17,12 +18,24 @@ export default function PlayerCard({
 
   return (
     <div className="profile-card">
-      <div className="player-card-image-wrapper"></div>
+      <div className="profile-card-image-wrapper">
+        <Image
+          src={player?.image ? player.image : "/Knight.png"}
+          alt="Imagem do jogador"
+          fill
+        ></Image>
+      </div>
 
-      <div className="player-card-info">
-        <div className="player-card-name">{player?.name}</div>
-        <div className="player-card-age">{player?.age} anos</div>
-        <div className="player-card-team-image-wrapper"></div>
+      <div className="profile-card-info">
+        <div className="profile-card-label">{player?.name}</div>
+        <div className="profile-card-detail">{player?.age} anos</div>
+        <div className="player-card-team-image-wrapper">
+          <Image
+            src={team?.image ? team.image : "/Knight.png"}
+            alt="Imagem do jogador"
+            fill
+          ></Image>
+        </div>
       </div>
     </div>
   );
