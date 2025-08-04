@@ -69,7 +69,7 @@ export async function deletePlayerById(id: number | undefined) {
   return await response.json();
 }
 
-export async function createTeam(data: { name: string }) {
+export async function createTeam(data: { name: string; image: string }) {
   const response = await fetch("http://localhost:3000/team", {
     method: "POST",
     headers: {
