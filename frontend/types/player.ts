@@ -8,5 +8,5 @@ export interface Player {
   created_at: string;
   updated_at: string;
 
-  image?: string;
+  image: string;
 }

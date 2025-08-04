@@ -8,6 +8,7 @@ import { getAllPlayers, getTeamById } from "@/app/lib/data";
 import { Player } from "../../../../../types/player";
 import { Team } from "../../../../../types/team";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 export default function IndividualTeam() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -50,7 +51,13 @@ export default function IndividualTeam() {
       </div>
 
       <div className="individual-team">
-        <div className="individual-team-image-wrapper"></div>
+        <div className="individual-team-image-wrapper">
+          <Image
+            src={team?.image ? team.image : "/default-team.png"}
+            alt="Imagem do time"
+            fill
+          />
+        </div>
         <p>{team?.name}</p>
       </div>
 

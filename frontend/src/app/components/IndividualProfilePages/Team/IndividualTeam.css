@@ -18,7 +18,7 @@
   height: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: red;
+  position: relative;
   display: inline-block;
 }
 
