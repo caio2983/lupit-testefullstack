@@ -50,6 +50,12 @@
   position: relative;
 }
 
+.profiles-little-image {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
 .with-separator {
   display: flex;
   justify-content: space-between;

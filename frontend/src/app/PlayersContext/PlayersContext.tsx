@@ -6,8 +6,10 @@ import {
   deletePlayerById,
   editPlayer,
   getAllPlayers,
+  getAllTeams,
   getPlayerById,
 } from "@/app/lib/data";
+import { Team, TeamWithPlayerCount } from "../../../types/team";
 
 interface PlayersContextType {
   players: Player[];
@@ -23,6 +25,7 @@ interface PlayersContextType {
   ) => Promise<void>;
   getPlayerById: (id: number) => Promise<Player>;
   setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+  fetchTeams: () => Promise<TeamWithPlayerCount[]>;
 }
 
 const PlayersContext = createContext<PlayersContextType | null>(null);
@@ -83,6 +86,19 @@ export const PlayersProvider = ({
     fetchPlayers();
   }, []);
 
+  const fetchTeams = async () => {
+    setLoading(true);
+    try {
+      const teamsWithPlayerCount = await getAllTeams();
+      return teamsWithPlayerCount;
+    } catch (error) {
+      console.error("Erro ao buscar times:", error);
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <PlayersContext.Provider
       value={{
@@ -93,6 +109,7 @@ export const PlayersProvider = ({
         updatePlayer,
         getPlayerById,
         setPlayers,
+        fetchTeams,
       }}
     >
       {children}
