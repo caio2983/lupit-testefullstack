@@ -18,8 +18,14 @@ export default async function Home() {
   return (
     <div className="page-wrapper">
       <div className="cards-wrapper">
-        <KpiCard text={"Times"} number={teams.length} />
-        <KpiCard text={"Jogadores"} number={players.length} />
+        <KpiCard
+          text={teams.length === 1 ? "Time" : "Times"}
+          number={teams.length}
+        />
+        <KpiCard
+          text={players.length === 1 ? "Jogador" : "Jogadores"}
+          number={players.length}
+        />
         <KpiCard
           text={"Idade média dos jogadores"}
           number={calculateAverageAge(players)}
