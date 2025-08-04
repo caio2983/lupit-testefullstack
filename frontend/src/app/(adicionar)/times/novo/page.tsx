@@ -90,9 +90,7 @@ export default function AdicionarTime() {
     setInputErro(false);
 
     try {
-      if (image !== null) {
-        await createTeam({ name, image });
-      }
+      await createTeam({ name, image });
 
       await Swal.fire({
         icon: "success",
@@ -130,7 +128,7 @@ export default function AdicionarTime() {
         <div className="adicionar-box">
           <div className="adicionar-image-wrapper">
             <img
-              src={image ?? "a"}
+              src={image ?? "/Knight.png"}
               alt="Image do jogador"
               className="adicionar-image"
             />
