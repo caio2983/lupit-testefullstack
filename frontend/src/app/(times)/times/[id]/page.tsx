@@ -5,7 +5,7 @@ import IndividualTeam from "@/app/components/IndividualProfilePages/Team/Individ
 
 export default function TeamProfile() {
   return (
-    <TeamsProvider>
+    <TeamsProvider baseUrl={"http://localhost:3001"}>
       <IndividualTeam></IndividualTeam>
     </TeamsProvider>
   );

@@ -3,7 +3,7 @@ import AllPlayers from "@/app/components/ProfilesPage/AllPlayers";
 
 export default async function JogadoresPage() {
   return (
-    <PlayersProvider>
+    <PlayersProvider baseUrl={"http://localhost:3001"}>
       <AllPlayers></AllPlayers>
     </PlayersProvider>
   );

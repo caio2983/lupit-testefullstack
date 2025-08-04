@@ -27,6 +27,8 @@ services:
   frontend:
     build: ./frontend
     command: npm run dev
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:3001
     volumes:
       - ./frontend:/app
     working_dir: /app

@@ -91,7 +91,7 @@ export default function EditarJogadorPage() {
 
     const fetchTeams = async () => {
       try {
-        const res = await fetch("http://localhost:3000/team");
+        const res = await fetch("http://localhost:3001/team");
         if (!res.ok) {
           throw new Error("Erro ao buscar times");
         }

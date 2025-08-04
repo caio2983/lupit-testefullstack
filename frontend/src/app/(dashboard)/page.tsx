@@ -7,8 +7,8 @@ import TeamCard from "../components/ProfileCards/TeamCard/TeamCard";
 import { getAllPlayers, getAllTeams } from "../lib/data";
 
 export default async function Home() {
-  const players = await getAllPlayers();
-  const teams = await getAllTeams();
+  const players = await getAllPlayers("http://backend:3001");
+  const teams = await getAllTeams("http://backend:3001");
 
   const calculateAverageAge = (players: Player[]) => {
     if (players.length === 0) return 0;

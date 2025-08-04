@@ -12,7 +12,7 @@ export default function AdicionarTime() {
   const [name, setName] = useState("");
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const baseUrl = "http://localhost:3001";
   const router = useRouter();
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +90,7 @@ export default function AdicionarTime() {
     setInputErro(false);
 
     try {
-      await createTeam({ name, image });
+      await createTeam(baseUrl, { name, image });
 
       await Swal.fire({
         icon: "success",

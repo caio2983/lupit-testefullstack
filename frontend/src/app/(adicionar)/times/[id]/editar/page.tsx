@@ -4,7 +4,7 @@ import React from "react";
 
 export default function EditarTime() {
   return (
-    <TeamsProvider>
+    <TeamsProvider baseUrl={"http://localhost:3001"}>
       <EditarTimePage></EditarTimePage>
     </TeamsProvider>
   );

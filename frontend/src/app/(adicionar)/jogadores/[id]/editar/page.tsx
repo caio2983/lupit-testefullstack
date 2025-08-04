@@ -5,7 +5,7 @@ import React from "react";
 
 export default function EditarJogador() {
   return (
-    <PlayersProvider>
+    <PlayersProvider baseUrl={"http://localhost:3001"}>
       <EditarJogadorPage></EditarJogadorPage>
     </PlayersProvider>
   );

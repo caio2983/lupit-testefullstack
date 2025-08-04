@@ -5,13 +5,12 @@ import { Team, TeamWithPlayerCount } from "../../../types/team";
 import {
   deleteTeamById,
   editTeam,
-  getAllPlayers,
   getAllTeams,
   getTeamById,
 } from "@/app/lib/data";
 
 interface TeamsContextType {
-  teams: Team[];
+  teams: TeamWithPlayerCount[];
   loading: boolean;
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
@@ -28,14 +27,19 @@ export const useTeams = () => {
   return ctx;
 };
 
-export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
+interface TeamsProviderProps {
+  children: React.ReactNode;
+  baseUrl: string;
+}
+
+export const TeamsProvider = ({ children, baseUrl }: TeamsProviderProps) => {
   const [teams, setTeams] = useState<TeamWithPlayerCount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchTeams = async () => {
     setLoading(true);
     try {
-      const teamsWithPlayerCount = await getAllTeams();
+      const teamsWithPlayerCount = await getAllTeams(baseUrl);
       console.log("teams with player count:", teamsWithPlayerCount);
       setTeams(teamsWithPlayerCount);
     } catch (error) {
@@ -47,8 +51,8 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
 
   const deleteTeam = async (id: number) => {
     try {
-      await deleteTeamById(id);
-      const updated = await getAllTeams();
+      await deleteTeamById(baseUrl, id);
+      const updated = await getAllTeams(baseUrl);
       setTeams(updated);
     } catch (error) {
       console.error("Erro ao deletar o time:", error);
@@ -57,8 +61,8 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateTeam = async (name: string, id: number, image: string) => {
     try {
-      await editTeam({ name, id, image });
-      const updated = await getAllTeams();
+      await editTeam(baseUrl, { name, id, image });
+      const updated = await getAllTeams(baseUrl);
       setTeams(updated);
     } catch (error) {
       console.error("Erro ao editar o time:", error);
@@ -77,7 +81,7 @@ export const TeamsProvider = ({ children }: { children: React.ReactNode }) => {
         fetchTeams,
         deleteTeam,
         updateTeam,
-        getTeamById,
+        getTeamById: (id: number) => getTeamById(baseUrl, id),
         setTeams,
       }}
     >

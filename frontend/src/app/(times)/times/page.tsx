@@ -3,7 +3,7 @@ import { TeamsProvider } from "../../TeamsContext/TeamsContext";
 
 export default function TimesPage() {
   return (
-    <TeamsProvider>
+    <TeamsProvider baseUrl={"http://localhost:3001"}>
       <AllTeams></AllTeams>
     </TeamsProvider>
   );
