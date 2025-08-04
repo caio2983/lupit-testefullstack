@@ -15,7 +15,7 @@
 
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Migration para inicializar o banco de dados com os models Team e Player
