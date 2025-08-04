@@ -6,7 +6,7 @@ import ProfilesList from "../ProfilesList/ProfilesList";
 import { usePlayers } from "@/app/PlayersContext/PlayersContext";
 
 export default function AllPlayers() {
-  const { players, loading, deletePlayer } = usePlayers();
+  const { players, loading, deletePlayer, fetchTeams } = usePlayers();
   const dataToRender = players;
   return (
     <ProfilePage type="player">
@@ -17,6 +17,7 @@ export default function AllPlayers() {
           type={"player"}
           data={dataToRender}
           deleteProfile={deletePlayer}
+          fetchTeams={fetchTeams}
         />
       )}
     </ProfilePage>

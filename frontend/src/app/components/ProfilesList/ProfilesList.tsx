@@ -2,21 +2,43 @@
 
 import { Edit, Trash } from "lucide-react";
 import { Player } from "../../../../types/player";
-import { TeamWithPlayerCount } from "../../../../types/team";
+import { Team, TeamWithPlayerCount } from "../../../../types/team";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function ProfilesList({
   type,
   data,
   deleteProfile,
+  fetchTeams,
 }: {
   type: "player" | "team";
   data: TeamWithPlayerCount[] | Player[];
   deleteProfile?: (id: number) => Promise<void>;
+  fetchTeams?: () => Promise<TeamWithPlayerCount[]>;
 }) {
   const router = useRouter();
+
+  const [teams, setTeams] = useState<TeamWithPlayerCount[] | null>(null);
+
+  useEffect(() => {
+    if (typeof fetchTeams === "function") {
+      console.log("TESTEEEE");
+      const loadTeams = async () => {
+        try {
+          const teamsData = await fetchTeams();
+
+          setTeams(teamsData);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      loadTeams();
+    }
+  }, [fetchTeams]);
 
   return (
     <div className="profiles-list">
@@ -64,8 +86,22 @@ export default function ProfilesList({
               (profile as TeamWithPlayerCount).numberOfPlayers
             ) : (
               <>
-                <img src={profile.image} alt="Logo" className="profile-logo" />
-                <div className="team-name">Nome</div>
+                <div className="profiles-little-image">
+                  <Image
+                    src={
+                      teams?.find(
+                        (team) => team.id === (profile as Player).team_id
+                      )?.image ?? "/Knight.png"
+                    }
+                    alt="Logo"
+                    fill
+                  />
+                </div>
+                <div className="team-name">
+                  {teams?.find(
+                    (team) => team.id === (profile as Player).team_id
+                  )?.name ?? ""}
+                </div>
               </>
             )}
           </div>
