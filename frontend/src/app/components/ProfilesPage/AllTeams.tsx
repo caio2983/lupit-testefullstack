@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProfilePage from "./ProfilePage";
 import ProfilesList from "../ProfilesList/ProfilesList";
 import { useTeams } from "@/app/TeamsContext/TeamsContext";
@@ -8,10 +8,20 @@ import { useTeams } from "@/app/TeamsContext/TeamsContext";
 export default function AllTeams() {
   const { teams, loading, deleteTeam } = useTeams();
 
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+  // O conteúdo ficava piscando entre o Carregando... e o <ProfilesList> mesmo depois de já ter carregado.
+  // Isso corrige esse comportamento errado
+  useEffect(() => {
+    if (!loading && !hasLoadedOnce) {
+      setHasLoadedOnce(true);
+    }
+  }, [loading, hasLoadedOnce]);
+
   const dataToRender = teams;
+
   return (
     <ProfilePage type="team">
-      {loading ? (
+      {!hasLoadedOnce && loading ? (
         <div>Carregando...</div>
       ) : (
         <ProfilesList
