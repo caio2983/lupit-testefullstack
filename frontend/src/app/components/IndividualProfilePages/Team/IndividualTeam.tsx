@@ -53,7 +53,7 @@ export default function IndividualTeam() {
       <div className="individual-team">
         <div className="individual-team-image-wrapper">
           <Image
-            src={team?.image ? team.image : "/default-team.png"}
+            src={team?.image ? team.image : "/Knight.png"}
             alt="Imagem do time"
             fill
           />

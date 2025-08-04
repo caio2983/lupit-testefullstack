@@ -4,10 +4,36 @@
   background-color: white;
   border: 1px solid lightgray;
   border-radius: 8px;
-  padding: 16px;
+  padding: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  display: flex;
 }
 
 .profile-card-empty {
   visibility: hidden;
+}
+
+.profile-card-image-wrapper {
+  position: relative;
+  width: 30%;
+  border-radius: 50%;
+}
+
+.profile-card-info {
+  padding-left: 20px;
+
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.profile-card-label {
+  font-weight: bold;
+}
+
+.profile-card-detail {
+  color: lightslategray;
 }
