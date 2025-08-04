@@ -25,7 +25,10 @@ export default function IndividualTeam() {
     async function fetchPlayers() {
       try {
         const res = await getAllPlayers();
-        setPlayers(res);
+        const filteredPlayers = res.filter(
+          (player: Player) => player.team_id === teamId
+        );
+        setPlayers(filteredPlayers);
       } catch (error) {
         console.error("Erro ao buscar jogadores:", error);
       }
@@ -42,7 +45,7 @@ export default function IndividualTeam() {
 
     fetchPlayers();
     fetchTeam();
-  }, []);
+  }, [id]);
 
   return (
     <main className="page-container">
