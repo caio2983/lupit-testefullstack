@@ -2,14 +2,14 @@ import { Player } from "../../../types/player";
 import { Team, TeamWithPlayerCount } from "../../../types/team";
 
 export async function getAllPlayers() {
-  const playersResponse = await fetch("http://localhost:3001/player");
+  const playersResponse = await fetch("http://backend:3001/player");
   const players = await playersResponse.json();
   return players;
 }
 
 export async function getAllTeams(): Promise<TeamWithPlayerCount[]> {
   try {
-    const teamsResponse = await fetch("http://localhost:3001/team");
+    const teamsResponse = await fetch("http://backend:3001/team");
     const teams: Team[] = await teamsResponse.json();
 
     const players: Player[] = await getAllPlayers();
@@ -37,7 +37,7 @@ export async function getTeamById(id: number): Promise<Team> {
     id = Number(id);
   }
 
-  const response = await fetch(`http://localhost:3001/team/${id}`);
+  const response = await fetch(`http://backend:3001/team/${id}`);
 
   if (!response.ok) {
     throw new Error(`Erro na resposta HTTP: ${response.status}`);
@@ -52,7 +52,7 @@ export async function getPlayerById(id: number): Promise<Player> {
     id = Number(id);
   }
 
-  const response = await fetch(`http://localhost:3001/player/${id}`);
+  const response = await fetch(`http://backend:3001/player/${id}`);
 
   if (!response.ok) {
     throw new Error(`Erro na resposta HTTP: ${response.status}`);
@@ -63,7 +63,7 @@ export async function getPlayerById(id: number): Promise<Player> {
 }
 
 export async function deleteTeamById(id: number | undefined) {
-  const response = await fetch(`http://localhost:3001/team/delete/${id}`);
+  const response = await fetch(`http://backend:3001/team/delete/${id}`);
   if (!response.ok) {
     throw new Error(`Falha ao deletar o time com id: ${id}`);
   }
@@ -71,7 +71,7 @@ export async function deleteTeamById(id: number | undefined) {
 }
 
 export async function deletePlayerById(id: number | undefined) {
-  const response = await fetch(`http://localhost:3001/player/delete/${id}`);
+  const response = await fetch(`http://backend:3001/player/delete/${id}`);
   if (!response.ok) {
     throw new Error(`Falha ao deletar o jogador com id: ${id}`);
   }
@@ -79,7 +79,7 @@ export async function deletePlayerById(id: number | undefined) {
 }
 
 export async function createTeam(data: { name: string; image: string | null }) {
-  const response = await fetch("http://localhost:3001/team", {
+  const response = await fetch("http://backend:3001/team", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export async function editTeam(data: {
   id: number;
   image: string;
 }) {
-  const response = await fetch(`http://localhost:3001/team/${data.id}`, {
+  const response = await fetch(`http://backend:3001/team/${data.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export async function editPlayer(data: {
   age: number;
   teamId: number;
 }) {
-  const response = await fetch(`http://localhost:3001/player/${data.id}`, {
+  const response = await fetch(`http://backend:3001/player/${data.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
