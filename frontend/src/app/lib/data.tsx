@@ -135,7 +135,7 @@ export async function editPlayer(data: {
       name: data.name,
       image: data.image,
       age: data.age,
-      teamId: data.teamId,
+      team_id: data.teamId,
     }),
   });
 

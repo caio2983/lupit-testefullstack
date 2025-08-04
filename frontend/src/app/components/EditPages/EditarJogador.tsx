@@ -15,12 +15,11 @@ export default function EditarJogadorPage() {
   const [name, setName] = useState("");
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const [age, setAge] = useState<number>(0);
+  const [age, setAge] = useState<number | null>(null);
   const [teams, setTeams] = useState<Team[]>([]);
   const [playerId, setPlayerId] = useState<number>(0);
   const [playerData, setPlayerData] = useState<Player>();
-  const [selectedId, setSelectedId] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const router = useRouter();
 
@@ -112,6 +111,10 @@ export default function EditarJogadorPage() {
         if (player_data.image) {
           setImage(player_data.image);
         }
+
+        setName(player_data.name);
+        setAge(player_data.age);
+        setSelectedId(player_data.team_id);
       }
     };
 
@@ -121,13 +124,24 @@ export default function EditarJogadorPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (name.trim() === "") {
+    if (selectedId === null) {
       setInputErro(true);
 
       Swal.fire({
         icon: "error",
-        title: "Digite um nome para o time",
+        title: "Selecione um time",
+        confirmButtonColor: "#0070f3",
+        scrollbarPadding: false,
+        heightAuto: false,
+      });
+      return;
+    }
+
+    if (age === null || age < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Idade inválida",
+        text: "Informe uma idade válida.",
         confirmButtonColor: "#0070f3",
         scrollbarPadding: false,
         heightAuto: false,
@@ -220,11 +234,11 @@ export default function EditarJogadorPage() {
                   name="idade"
                   placeholder="Idade"
                   className="input-adicionar input-jogador-idade"
-                  value={age}
+                  value={age !== null ? age : ""}
                   onChange={(e) => {
                     const value = e.target.value;
                     if (value === "") {
-                      setAge(0);
+                      setAge(null);
                     } else {
                       const parsed = parseInt(value);
                       if (!isNaN(parsed)) {
@@ -249,7 +263,7 @@ export default function EditarJogadorPage() {
                   if (selectedTeam) {
                     setSelectedId(selectedTeam.id);
                   } else {
-                    setSelectedId(0);
+                    setSelectedId(null);
                   }
                 }}
               />

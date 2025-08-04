@@ -1,5 +1,4 @@
 import { PlayersProvider } from "@/app/PlayersContext/PlayersContext";
-import { TeamsProvider } from "@/app/TeamsContext/TeamsContext";
 import EditarJogadorPage from "@/app/components/EditPages/EditarJogador";
 
 import React from "react";
