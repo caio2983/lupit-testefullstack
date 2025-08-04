@@ -50,11 +50,7 @@ export default function ProfilesList({
           }}
         >
           <div className="profiles-property">
-            <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-              alt="Logo"
-              className="profile-logo"
-            />
+            <img src={profile.image} alt="Logo" className="profile-logo" />
           </div>
           <div className="profiles-property">{profile.id}</div>
           <div className="profiles-property">{profile.name}</div>
@@ -63,7 +59,7 @@ export default function ProfilesList({
               (profile as TeamWithPlayerCount).numberOfPlayers
             ) : (
               <>
-                <img src={"a"} alt="Logo" className="profile-logo" />
+                <img src={profile.image} alt="Logo" className="profile-logo" />
                 <div className="team-name">Nome</div>
               </>
             )}
