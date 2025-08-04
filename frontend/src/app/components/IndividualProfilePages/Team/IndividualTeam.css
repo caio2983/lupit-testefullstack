@@ -28,9 +28,8 @@
 
 .individual-team-players-list {
   width: 100%;
-
+  display: grid;
   gap: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
