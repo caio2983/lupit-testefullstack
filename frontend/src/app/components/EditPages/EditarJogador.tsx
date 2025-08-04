@@ -241,15 +241,21 @@ export default function EditarJogadorPage() {
                 name="playerId"
                 className="input-select-team"
                 placeholder="Selecione um time"
-                value={
-                  teams.find((team) => team.id === playerData?.team_id)?.name ??
-                  ""
-                }
-                onChange={(e) => setSelectedId(Number(e.target.value))}
+                value={teams.find((team) => team.id === selectedId)?.name ?? ""}
+                onChange={(e) => {
+                  const selectedTeam = teams.find(
+                    (team) => team.name === e.target.value
+                  );
+                  if (selectedTeam) {
+                    setSelectedId(selectedTeam.id);
+                  } else {
+                    setSelectedId(0);
+                  }
+                }}
               />
               <datalist id="teams">
                 {teams.map((team) => (
-                  <option key={team.id} value={team.id}>
+                  <option key={team.id} value={team.name}>
                     {team.name}
                   </option>
                 ))}
