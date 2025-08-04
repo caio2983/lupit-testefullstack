@@ -34,7 +34,7 @@ async function createPlayer(baseUrl: string, playerData: any): Promise<Player> {
 }
 
 async function main() {
-  const baseUrl = 'http://localhost:3000';
+  const baseUrl = 'http://backend:3001';
   const teams: Team[] = [];
   for (let i = 1; i <= 5; i++) {
     try {
