@@ -41,4 +41,19 @@ export class PlayerService {
       where: { id },
     });
   }
+
+  async updatePlayer(
+    id: number,
+    updateData: { name?: string; image: string; age: number; team_id: number },
+  ): Promise<Player> {
+    return this.prisma.player.update({
+      where: { id },
+      data: {
+        ...(updateData.name && { name: updateData.name }),
+        ...(updateData.image && { image: updateData.image }),
+        ...(updateData.team_id && { team_id: updateData.team_id }),
+        ...(updateData.age && { age: updateData.age }),
+      },
+    });
+  }
 }

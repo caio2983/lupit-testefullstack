@@ -84,4 +84,18 @@ export class AppController {
     console.log('team updated', updatedTeam);
     return updatedTeam;
   }
+
+  @Put('player/:id')
+  async editPlayer(
+    @Param('id') id: string,
+    @Body()
+    updateData: { name?: string; image: string; age: number; team_id: number },
+  ): Promise<Player> {
+    const updatedPlayer = await this.playerService.updatePlayer(
+      Number(id),
+      updateData,
+    );
+    console.log('team updated', updatedPlayer);
+    return updatedPlayer;
+  }
 }
