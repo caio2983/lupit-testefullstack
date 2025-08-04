@@ -18,7 +18,8 @@ interface PlayersContextType {
     name: string,
     id: number,
     image: string,
-    age: number
+    age: number,
+    teamId: number
   ) => Promise<void>;
   getPlayerById: (id: number) => Promise<Player>;
   setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
@@ -66,10 +67,11 @@ export const PlayersProvider = ({
     name: string,
     id: number,
     image: string,
-    age: number
+    age: number,
+    teamId: number
   ) => {
     try {
-      await editPlayer({ name, id, image, age });
+      await editPlayer({ name, id, image, age, teamId });
       const updated = await getAllPlayers();
       setPlayers(updated);
     } catch (error) {

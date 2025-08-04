@@ -15,10 +15,12 @@ export default function EditarJogadorPage() {
   const [name, setName] = useState("");
   const [inputErro, setInputErro] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [age, setAge] = useState<number | null>(null);
+
+  const [age, setAge] = useState<number>(0);
   const [teams, setTeams] = useState<Team[]>([]);
   const [playerId, setPlayerId] = useState<number>(0);
   const [playerData, setPlayerData] = useState<Player>();
+  const [selectedId, setSelectedId] = useState<number>(0);
 
   const router = useRouter();
 
@@ -103,7 +105,7 @@ export default function EditarJogadorPage() {
 
     const playerData = async (id: number) => {
       const player_data = await getPlayerById(id);
-
+      console.log("PLAYEDATRAAAA", player_data);
       if (player_data) {
         setPlayerData(player_data);
 
@@ -133,42 +135,14 @@ export default function EditarJogadorPage() {
       return;
     }
 
-    if (playerId) {
-      setInputErro(true);
-
-      Swal.fire({
-        icon: "error",
-        title: "Selecione um time",
-        confirmButtonColor: "#0070f3",
-        scrollbarPadding: false,
-        heightAuto: false,
-      });
-      return;
-    }
-
     setInputErro(false);
-
+    if (!playerData) return;
     try {
-      const response = await fetch("http://localhost:3000/player", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          playerId: playerId,
-          age,
-          image,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro ao criar jogador");
-      }
+      await updatePlayer(name, playerId, image, age, selectedId);
 
       await Swal.fire({
         icon: "success",
-        title: "Jogador criado com sucesso!",
+        title: "Jogador atualizado com sucesso!",
         confirmButtonColor: "#0070f3",
         scrollbarPadding: false,
         heightAuto: false,
@@ -176,7 +150,7 @@ export default function EditarJogadorPage() {
 
       setName("");
       setImage("/Knight.png");
-      setAge(null);
+      setAge(0);
 
       router.push("/jogadores");
     } catch (error) {
@@ -246,11 +220,11 @@ export default function EditarJogadorPage() {
                   name="idade"
                   placeholder="Idade"
                   className="input-adicionar input-jogador-idade"
-                  value={age ?? ""}
+                  value={age}
                   onChange={(e) => {
                     const value = e.target.value;
                     if (value === "") {
-                      setAge(null);
+                      setAge(0);
                     } else {
                       const parsed = parseInt(value);
                       if (!isNaN(parsed)) {
@@ -267,8 +241,11 @@ export default function EditarJogadorPage() {
                 name="playerId"
                 className="input-select-team"
                 placeholder="Selecione um time"
-                value={playerId}
-                onChange={(e) => setPlayerId(Number(e.target.value))}
+                value={
+                  teams.find((team) => team.id === playerData?.team_id)?.name ??
+                  ""
+                }
+                onChange={(e) => setSelectedId(Number(e.target.value))}
               />
               <datalist id="teams">
                 {teams.map((team) => (
