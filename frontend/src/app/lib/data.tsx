@@ -47,6 +47,21 @@ export async function getTeamById(id: number): Promise<Team> {
   return data as Team;
 }
 
+export async function getPlayerById(id: number): Promise<Player> {
+  if (typeof id !== "number") {
+    id = Number(id);
+  }
+
+  const response = await fetch(`http://localhost:3000/player/${id}`);
+
+  if (!response.ok) {
+    throw new Error(`Erro na resposta HTTP: ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data as Player;
+}
+
 export async function deleteTeamById(id: number | undefined) {
   const response = await fetch(`http://localhost:3000/team/delete/${id}`);
   if (!response.ok) {

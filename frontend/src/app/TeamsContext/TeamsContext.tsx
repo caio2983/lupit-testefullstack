@@ -16,7 +16,7 @@ interface TeamsContextType {
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
   updateTeam: (name: string, id: number, image: string) => Promise<void>;
-  getTeamById: (id: number) => Promise<Team | null>;
+  getTeamById: (id: number) => Promise<Team>;
   setTeams: React.Dispatch<React.SetStateAction<TeamWithPlayerCount[]>>;
 }
 

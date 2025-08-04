@@ -2,7 +2,12 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Player } from "../../../types/player";
-import { deletePlayerById, editPlayer, getAllPlayers } from "@/app/lib/data";
+import {
+  deletePlayerById,
+  editPlayer,
+  getAllPlayers,
+  getPlayerById,
+} from "@/app/lib/data";
 
 interface PlayersContextType {
   players: Player[];
@@ -15,7 +20,7 @@ interface PlayersContextType {
     image: string,
     age: number
   ) => Promise<void>;
-
+  getPlayerById: (id: number) => Promise<Player>;
   setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 }
 
@@ -84,7 +89,7 @@ export const PlayersProvider = ({
         fetchPlayers,
         deletePlayer,
         updatePlayer,
-
+        getPlayerById,
         setPlayers,
       }}
     >
