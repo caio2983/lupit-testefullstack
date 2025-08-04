@@ -15,18 +15,19 @@ export default function IndividualTeam() {
   const [team, setTeam] = useState<Team | null>(null);
   const [teamId, setTeamId] = useState<number>(0);
 
+  const { teams } = useTeams();
+
   const params = useParams();
   const id = params.id;
 
   useEffect(() => {
-    const teamId = Number(id);
-    setTeamId(teamId);
+    const numericId = Number(id);
 
     async function fetchPlayers() {
       try {
-        const res = await getAllPlayers();
+        const res = await getAllPlayers("http://localhost:3001");
         const filteredPlayers = res.filter(
-          (player: Player) => player.team_id === teamId
+          (player: Player) => player.team_id === numericId
         );
         setPlayers(filteredPlayers);
       } catch (error) {
@@ -34,18 +35,15 @@ export default function IndividualTeam() {
       }
     }
 
-    async function fetchTeam() {
-      try {
-        const res = await getTeamById(teamId);
-        setTeam(res);
-      } catch (error) {
-        console.error("erro ao buscar o time", error);
-      }
+    const selectedTeam = teams.find((team: Team) => team.id === numericId);
+    if (selectedTeam) {
+      setTeam(selectedTeam);
+    } else {
+      console.warn("Nenhum time encontrado com id:", numericId);
     }
 
     fetchPlayers();
-    fetchTeam();
-  }, [id]);
+  }, [id, teams]);
 
   return (
     <main className="page-container">

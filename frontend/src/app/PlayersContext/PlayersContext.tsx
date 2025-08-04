@@ -9,7 +9,7 @@ import {
   getAllTeams,
   getPlayerById,
 } from "@/app/lib/data";
-import { Team, TeamWithPlayerCount } from "../../../types/team";
+import { TeamWithPlayerCount } from "../../../types/team";
 
 interface PlayersContextType {
   players: Player[];
@@ -36,21 +36,25 @@ export const usePlayers = () => {
   return ctx;
 };
 
+interface PlayersProviderProps {
+  children: React.ReactNode;
+  baseUrl: string;
+}
+
 export const PlayersProvider = ({
   children,
-}: {
-  children: React.ReactNode;
-}) => {
+  baseUrl,
+}: PlayersProviderProps) => {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchPlayers = async () => {
     setLoading(true);
     try {
-      const res = await getAllPlayers();
+      const res = await getAllPlayers(baseUrl);
       setPlayers(res);
     } catch (error) {
-      console.error("Erro ao buscar times:", error);
+      console.error("Erro ao buscar jogadores:", error);
     } finally {
       setLoading(false);
     }
@@ -58,11 +62,11 @@ export const PlayersProvider = ({
 
   const deletePlayer = async (id: number) => {
     try {
-      await deletePlayerById(id);
-      const updated = await getAllPlayers();
+      await deletePlayerById(baseUrl, id);
+      const updated = await getAllPlayers(baseUrl);
       setPlayers(updated);
     } catch (error) {
-      console.error("Erro ao deletar o time:", error);
+      console.error("Erro ao deletar o jogador:", error);
     }
   };
 
@@ -74,22 +78,18 @@ export const PlayersProvider = ({
     teamId: number
   ) => {
     try {
-      await editPlayer({ name, id, image, age, teamId });
-      const updated = await getAllPlayers();
+      await editPlayer(baseUrl, { name, id, image, age, teamId });
+      const updated = await getAllPlayers(baseUrl);
       setPlayers(updated);
     } catch (error) {
-      console.error("Erro ao editar o time:", error);
+      console.error("Erro ao editar o jogador:", error);
     }
   };
 
-  useEffect(() => {
-    fetchPlayers();
-  }, []);
-
-  const fetchTeams = async () => {
+  const fetchTeams = async (): Promise<TeamWithPlayerCount[]> => {
     setLoading(true);
     try {
-      const teamsWithPlayerCount = await getAllTeams();
+      const teamsWithPlayerCount = await getAllTeams(baseUrl);
       return teamsWithPlayerCount;
     } catch (error) {
       console.error("Erro ao buscar times:", error);
@@ -99,6 +99,10 @@ export const PlayersProvider = ({
     }
   };
 
+  useEffect(() => {
+    fetchPlayers();
+  }, []);
+
   return (
     <PlayersContext.Provider
       value={{
@@ -107,7 +111,7 @@ export const PlayersProvider = ({
         fetchPlayers,
         deletePlayer,
         updatePlayer,
-        getPlayerById,
+        getPlayerById: (id: number) => getPlayerById(baseUrl, id),
         setPlayers,
         fetchTeams,
       }}

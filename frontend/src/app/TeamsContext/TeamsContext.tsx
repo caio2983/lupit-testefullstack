@@ -15,7 +15,7 @@ interface TeamsContextType {
   fetchTeams: () => Promise<void>;
   deleteTeam: (id: number) => Promise<void>;
   updateTeam: (name: string, id: number, image: string) => Promise<void>;
-  getTeamById: (id: number) => Promise<Team>;
+  getTeamById: (baseUrl: string, id: number) => Promise<Team>;
   setTeams: React.Dispatch<React.SetStateAction<TeamWithPlayerCount[]>>;
 }
 
@@ -81,7 +81,7 @@ export const TeamsProvider = ({ children, baseUrl }: TeamsProviderProps) => {
         fetchTeams,
         deleteTeam,
         updateTeam,
-        getTeamById: (id: number) => getTeamById(baseUrl, id),
+        getTeamById: (baseUrl: string, id: number) => getTeamById(baseUrl, id),
         setTeams,
       }}
     >
