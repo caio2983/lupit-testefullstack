@@ -5,6 +5,7 @@ import { Player } from "../../../../types/player";
 import { TeamWithPlayerCount } from "../../../../types/team";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 export default function ProfilesList({
   type,
@@ -49,8 +50,12 @@ export default function ProfilesList({
             }
           }}
         >
-          <div className="profiles-property">
-            <img src={profile.image} alt="Logo" className="profile-logo" />
+          <div className="profiles-property profiles-image">
+            <Image
+              src={profile.image ? profile.image : "/Knight.png"}
+              alt="Logo"
+              fill
+            />
           </div>
           <div className="profiles-property">{profile.id}</div>
           <div className="profiles-property">{profile.name}</div>
