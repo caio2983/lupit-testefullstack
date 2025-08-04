@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../../globals.css";
 import Link from "next/link";
+import { LayoutDashboard, User, Users } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,25 @@ export default function RootLayout({
         </header>
         <div className="main-content">
           <div className="main-navbar">
-            <div className="nav-item"></div>
-            <div className="nav-item"></div>
-            <div className="nav-item"></div>
+            <div className="nav-item">
+              <Link href={"/"}>
+                <LayoutDashboard
+                  className="nav-icon"
+                  style={{ color: "white" }}
+                />
+              </Link>
+            </div>
+
+            <div className="nav-item">
+              <Link href={"/jogadores"}>
+                <User className="nav-icon" style={{ color: "white" }} />
+              </Link>
+            </div>
+            <div className="nav-item">
+              <Link href={"/times"}>
+                <Users className="nav-icon" style={{ color: "white" }} />
+              </Link>
+            </div>
           </div>
           {children}
         </div>
