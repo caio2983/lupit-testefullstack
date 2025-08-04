@@ -83,7 +83,7 @@ export async function editTeam(data: {
   name: string;
 
   id: number;
-  image: string | null;
+  image: string;
 }) {
   const response = await fetch(`http://localhost:3000/team/${data.id}`, {
     method: "PUT",
@@ -92,6 +92,7 @@ export async function editTeam(data: {
     },
     body: JSON.stringify({
       name: data.name,
+      image: data.image,
     }),
   });
 

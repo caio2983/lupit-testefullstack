@@ -30,11 +30,15 @@ export class TeamService {
     });
   }
 
-  async updateTeam(id: number, updateData: { name?: string }): Promise<Team> {
+  async updateTeam(
+    id: number,
+    updateData: { name?: string; image: string },
+  ): Promise<Team> {
     return this.prisma.team.update({
       where: { id },
       data: {
         ...(updateData.name && { name: updateData.name }),
+        ...(updateData.image && { image: updateData.image }),
       },
     });
   }

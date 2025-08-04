@@ -75,7 +75,7 @@ export class AppController {
   @Put('team/:id')
   async editTeam(
     @Param('id') id: string,
-    @Body() updateData: { name?: string },
+    @Body() updateData: { name?: string; image: string },
   ): Promise<Team> {
     const updatedTeam = await this.teamService.updateTeam(
       Number(id),
