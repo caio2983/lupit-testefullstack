@@ -27,6 +27,7 @@
 .profiles-card {
   background-color: #ffffff;
   transition: background-color 0.2s ease;
+  z-index: 0;
 }
 
 .profiles-card:hover {
@@ -88,6 +89,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  z-index: 10;
 }
 
 .icon:hover {
