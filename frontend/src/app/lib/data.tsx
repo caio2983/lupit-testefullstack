@@ -32,25 +32,19 @@ export async function getAllTeams(): Promise<TeamWithPlayerCount[]> {
   }
 }
 
-export async function getTeamById(id: number): Promise<Team | null> {
+export async function getTeamById(id: number): Promise<Team> {
   if (typeof id !== "number") {
     id = Number(id);
   }
 
-  try {
-    const response = await fetch(`http://localhost:3000/team/${id}`);
+  const response = await fetch(`http://localhost:3000/team/${id}`);
 
-    if (!response.ok) {
-      console.error("Erro na resposta HTTP:", response.status);
-      return null;
-    }
-
-    const data = await response.json();
-    return data as Team;
-  } catch (error) {
-    console.error("Erro ao buscar o time:", error);
-    return null;
+  if (!response.ok) {
+    throw new Error(`Erro na resposta HTTP: ${response.status}`);
   }
+
+  const data = await response.json();
+  return data as Team;
 }
 
 export async function deleteTeamById(id: number | undefined) {
@@ -69,7 +63,7 @@ export async function deletePlayerById(id: number | undefined) {
   return await response.json();
 }
 
-export async function createTeam(data: { name: string; image: string }) {
+export async function createTeam(data: { name: string; image: string | null }) {
   const response = await fetch("http://localhost:3000/team", {
     method: "POST",
     headers: {
@@ -89,6 +83,7 @@ export async function editTeam(data: {
   name: string;
 
   id: number;
+  image: string | null;
 }) {
   const response = await fetch(`http://localhost:3000/team/${data.id}`, {
     method: "PUT",
