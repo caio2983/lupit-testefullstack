@@ -2,13 +2,21 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Player } from "../../../types/player";
-import { deletePlayerById, getAllPlayers } from "@/app/lib/data";
+import { deletePlayerById, editPlayer, getAllPlayers } from "@/app/lib/data";
 
 interface PlayersContextType {
   players: Player[];
   loading: boolean;
   fetchPlayers: () => Promise<void>;
   deletePlayer: (id: number) => Promise<void>;
+  updatePlayer: (
+    name: string,
+    id: number,
+    image: string,
+    age: number
+  ) => Promise<void>;
+
+  setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 }
 
 const PlayersContext = createContext<PlayersContextType | null>(null);
@@ -49,13 +57,36 @@ export const PlayersProvider = ({
     }
   };
 
+  const updatePlayer = async (
+    name: string,
+    id: number,
+    image: string,
+    age: number
+  ) => {
+    try {
+      await editPlayer({ name, id, image, age });
+      const updated = await getAllPlayers();
+      setPlayers(updated);
+    } catch (error) {
+      console.error("Erro ao editar o time:", error);
+    }
+  };
+
   useEffect(() => {
     fetchPlayers();
   }, []);
 
   return (
     <PlayersContext.Provider
-      value={{ players, loading, fetchPlayers, deletePlayer }}
+      value={{
+        players,
+        loading,
+        fetchPlayers,
+        deletePlayer,
+        updatePlayer,
+
+        setPlayers,
+      }}
     >
       {children}
     </PlayersContext.Provider>

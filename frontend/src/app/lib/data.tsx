@@ -101,3 +101,27 @@ export async function editTeam(data: {
 
   return await response.json();
 }
+
+export async function editPlayer(data: {
+  name: string;
+
+  id: number;
+  image: string | null;
+  age: number;
+}) {
+  const response = await fetch(`http://localhost:3000/player/${data.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: data.name,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao editar jogador");
+  }
+
+  return await response.json();
+}
