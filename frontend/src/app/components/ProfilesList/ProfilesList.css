@@ -24,14 +24,14 @@
   border-top-right-radius: 8px;
 }
 
-.profiles-card {
+.profiles-team-card {
   background-color: #ffffff;
   transition: background-color 0.2s ease;
   z-index: 0;
   cursor: pointer;
 }
 
-.profiles-card:hover {
+.profiles-team-card:hover {
   background-color: #f3f4f6;
 }
 
@@ -99,4 +99,13 @@
 .icon:hover {
   cursor: pointer;
   stroke: black;
+}
+
+.team-name a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.team-name a:hover {
+  text-decoration: underline;
 }
