@@ -14,6 +14,7 @@ export class PlayerService {
     name: string;
     age: number;
     teamId: number;
+    image?: string;
   }): Promise<Player> {
     console.log('player created service');
     return await this.prisma.player.create({

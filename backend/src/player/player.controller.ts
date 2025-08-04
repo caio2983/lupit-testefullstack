@@ -14,7 +14,13 @@ export class PlayerController {
 
   @Post('player')
   createPlayer(
-    @Body() body: { name: string; age: number; teamId: number },
+    @Body()
+    body: {
+      name: string;
+      age: number;
+      teamId: number;
+      image?: string;
+    },
   ): Promise<Player> {
     console.log('player created controller');
     return this.playerService.createPlayer(body);
