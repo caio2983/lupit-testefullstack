@@ -12,7 +12,7 @@ export default function PlayerCard({
   empty?: boolean;
 }) {
   if (empty) {
-    return <div className="profile-card" />;
+    return <div className="profile-card profile-card-empty" />;
   }
 
   return (

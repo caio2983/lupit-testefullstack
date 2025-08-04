@@ -11,7 +11,7 @@ export default function TeamCard({
   empty?: boolean;
 }) {
   if (empty) {
-    return <div className="profile-card" />;
+    return <div className="profile-card profile-card-empty" />;
   }
 
   return (
